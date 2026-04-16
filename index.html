@@ -1,307 +1,251 @@
-
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>TWC Jaarplanning 2026</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans)}
-.wrap{padding:1rem 0}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:12px}
-.topbar h2{font-size:14px;font-weight:500;color:var(--color-text-primary)}
-.topbar span{font-size:12px;color:var(--color-text-secondary)}
-.tabs{display:flex;gap:6px;margin-bottom:12px}
-.tab{padding:5px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:12px;font-weight:500;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary)}
-.tab.active{background:#C45B0E;color:#fff;border-color:#C45B0E}
-.actions{display:flex;gap:6px}
-.btn{padding:5px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:12px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-primary)}
-.btn:hover{background:var(--color-background-secondary)}
-.btn.primary{background:#C45B0E;color:#fff;border-color:#C45B0E}
-.gantt-wrap{overflow-x:auto}
-.gantt-table{width:100%;border-collapse:collapse;min-width:700px}
-.gantt-table th{font-size:11px;font-weight:500;padding:5px 4px;text-align:center;color:var(--color-text-secondary);background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary)}
-.gantt-table th.lbl{text-align:left;padding-left:8px;min-width:155px}
-.gantt-table th.lbl2{text-align:left;padding-left:6px;min-width:180px}
-.gantt-table th.cur-hdr{background:#C45B0E;color:#fff}
-.gantt-table th.past-hdr{color:var(--color-text-tertiary)}
-.gantt-table td{font-size:11px;padding:2px 3px;border-bottom:0.5px solid var(--color-border-tertiary)}
-.gantt-table td.lbl{padding:4px 8px;font-weight:500;color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:155px}
-.gantt-table td.lbl2{padding:4px 6px;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;font-size:10px}
-.gantt-table td.mc{padding:2px;vertical-align:middle;min-width:50px}
-.gantt-table td.past-c{background:var(--color-background-tertiary);opacity:.5}
-.gantt-table td.cur-c{background:rgba(196,91,14,.06)}
-.bar{display:block;width:100%;padding:3px 4px;border-radius:3px;font-size:9px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
-.bar-klant{background:#FAE8D9;color:#7A3200}
-.bar-sales{background:#E3F2FD;color:#0C447C}
-.bar-klant.past,.bar-sales.past{background:var(--color-background-secondary);color:var(--color-text-tertiary)}
-.sep-row td{background:var(--color-background-secondary);font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:4px 8px}
-.cnt-row td{font-size:11px;font-weight:500;padding:4px 3px;background:var(--color-background-secondary);text-align:center;color:#C45B0E}
-.cnt-row td.lbl,.cnt-row td.lbl2{text-align:left;color:var(--color-text-secondary);font-size:10px}
-.eng-grid{display:grid;gap:5px;margin-top:4px}
-.eng-row{display:grid;grid-template-columns:120px repeat(12,1fr);gap:3px;align-items:center}
-.eng-head{display:grid;grid-template-columns:120px repeat(12,1fr);gap:3px;margin-bottom:4px}
-.eng-head div{font-size:10px;font-weight:500;text-align:center;color:var(--color-text-secondary);padding:4px 2px;background:var(--color-background-secondary);border-radius:3px}
-.eng-head div.cur-hdr{background:#C45B0E;color:#fff}
-.eng-head div.past-hdr{color:var(--color-text-tertiary)}
-.eng-head div.lbl-h{text-align:left;padding-left:6px;background:none}
-.eng-name{font-size:11px;font-weight:500;color:var(--color-text-primary);padding:5px 8px;background:var(--color-background-secondary);border-radius:3px}
-.eng-cell{text-align:center;font-size:12px;font-weight:500;padding:5px 2px;border-radius:3px}
-.e0{background:var(--color-background-secondary);color:var(--color-text-tertiary)}
-.e1,.e2{background:#EAF3DE;color:#3B6D11}
-.e3{background:#FAEEDA;color:#854F0B}
-.e4{background:#FCEBEB;color:#A32D2D}
-.epast{background:var(--color-background-tertiary);color:transparent}
-.edit-panel{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px;margin-bottom:12px}
-.edit-panel h3{font-size:13px;font-weight:500;margin-bottom:10px;color:var(--color-text-primary)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.form-grid label{font-size:11px;color:var(--color-text-secondary);margin-bottom:2px;display:block}
-.form-grid input,.form-grid select{width:100%;font-size:12px;padding:4px 6px}
-.form-row{grid-column:1/-1;display:flex;gap:6px;justify-content:flex-end;margin-top:4px}
-.proj-list{margin-top:10px;max-height:200px;overflow-y:auto}
-.proj-item{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;border-radius:3px;font-size:11px;border-bottom:0.5px solid var(--color-border-tertiary)}
-.proj-item:hover{background:var(--color-background-primary)}
-.pi-sub{color:var(--color-text-secondary);font-size:10px;margin-top:1px}
-.del-btn{font-size:11px;color:var(--color-text-danger);cursor:pointer;padding:2px 6px;border:none;background:none}
-.tag{display:inline-block;padding:1px 6px;border-radius:10px;font-size:9px;font-weight:500}
-.tag-k{background:#FAE8D9;color:#7A3200}
-.tag-s{background:#E3F2FD;color:#0C447C}
-.tag-d{background:var(--color-background-success);color:var(--color-text-success)}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#141414;color:#f0f0f0;font-family:'Segoe UI',Arial,sans-serif}
+.page{width:1920px;height:1080px;padding:22px 28px;display:flex;flex-direction:column;gap:14px}
+
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:center;background:#1e1e1e;border-left:6px solid #C45B0E;padding:14px 20px;border-radius:3px;flex-shrink:0}
+.header h1{font-size:17px;font-weight:600;color:#fff;letter-spacing:.4px}
+.header-sub{font-size:11px;color:#666;margin-top:3px}
+.header-right{font-size:13px;color:#C45B0E;font-weight:700;text-align:right}
+.header-right span{display:block;color:#555;font-weight:400;font-size:11px;margin-top:2px}
+
+/* MAIN LAYOUT */
+.main{display:flex;gap:14px;flex:1;min-height:0}
+
+/* GANTT */
+.gantt-panel{flex:1;display:flex;flex-direction:column;min-width:0}
+.panel-label{font-size:10px;font-weight:700;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.gantt-scroll{flex:1;overflow:hidden}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{font-size:11px;font-weight:600;padding:8px 4px;text-align:center;color:#666;background:#1a1a1a;border-bottom:2px solid #111;letter-spacing:.4px}
+th.lbl{text-align:left;padding-left:10px;color:#999;width:170px}
+th.lbl2{text-align:left;padding-left:8px;color:#777;width:220px;font-weight:400}
+th.cur{background:#C45B0E;color:#fff;font-weight:700}
+td{font-size:11px;padding:2px 3px;border-bottom:1px solid #1e1e1e}
+tr:hover td{background:rgba(255,255,255,.02)}
+td.lbl{padding:5px 10px;font-weight:600;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#1c1c1c;border-right:1px solid #111}
+td.lbl2{padding:5px 8px;color:#777;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#1c1c1c;font-size:10px;border-right:1px solid #111}
+td.mc{padding:2px 2px;background:#181818}
+td.cur-c{background:#1f1208}
+.bar{display:block;width:100%;padding:4px 6px;border-radius:3px;font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.bk{background:#3d1f07;color:#e8934a;border:1px solid #5a3010}
+.bs{background:#0d2440;color:#5b9bd5;border:1px solid #1a3f6e}
+.mid{color:#555;text-align:center;font-size:11px;display:block;padding:4px}
+.cnt-row td{background:#111;font-size:12px;font-weight:700;padding:6px 4px;text-align:center;color:#C45B0E;border-top:2px solid #0a0a0a}
+.cnt-row td.lbl,.cnt-row td.lbl2{color:#444;text-align:left;font-size:10px;background:#111}
+
+/* ENGINEER PANEL */
+.eng-panel{width:360px;flex-shrink:0;display:flex;flex-direction:column}
+.eng-grid{display:grid;gap:4px;flex:1}
+.eng-head-row{display:grid;gap:3px;margin-bottom:5px}
+.eng-row{display:grid;gap:3px;align-items:center}
+.eng-name{font-size:11px;font-weight:600;color:#bbb;padding:5px 10px;background:#1e1e1e;border-radius:3px;white-space:nowrap;overflow:hidden}
+.ec{text-align:center;font-size:12px;font-weight:700;padding:5px 2px;border-radius:3px}
+.eh{font-size:9px;font-weight:600;text-align:center;color:#555;padding:5px 2px;background:#1a1a1a;border-radius:3px;letter-spacing:.3px}
+.eh.cur{background:#C45B0E;color:#fff}
+.e0{background:#181818;color:#333}
+.e1,.e2{background:#1a3d25;color:#4caf50}
+.e3{background:#3d2800;color:#ff9800}
+.e4{background:#3d0a0a;color:#f44336}
+
+/* LEGENDA */
+.legend{display:flex;gap:16px;align-items:center;flex-shrink:0;padding-top:4px;border-top:1px solid #222}
+.li{display:flex;align-items:center;gap:5px;font-size:10px}
+.ld{width:14px;height:10px;border-radius:2px}
 </style>
+</head>
+<body>
+<!--
+================================================================
+  PROJECTDATA - HIER AANPASSEN (open in Kladblok of Notepad++)
+================================================================
 
-<div class="wrap">
-<div class="topbar">
-  <h2>TWC IT Solutions - Jaarplanning 2026</h2>
-  <span id="cur-lbl"></span>
-</div>
+  Velden per project:
+  k = Klantnaam
+  p = Projectnaam
+  e = Engineers (kommagescheiden)
+  t = "Klant" of "Sales"
+  s = Startmaand (1=Jan t/m 12=Dec)
+  n = Eindmaand
+  x = "" = actief  /  "Afgerond" = wordt niet getoond
 
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('planning')">Planning</button>
-    <button class="tab" onclick="showTab('engineers')">Engineer overzicht</button>
+  Na aanpassen: opslaan en opnieuw uploaden naar GitHub.
+  De URL in Scala blijft hetzelfde.
+================================================================
+-->
+<script>
+const DATA=[
+  {k:"ASV Automobielbedrijven",  p:"Vervanging infrastructuur",    e:"Mitchell, Dennis",  t:"Klant",s:1,n:4,x:""},
+  {k:"Connection-SGGZ",          p:"RBAC-Datamigratie Sharepoint",  e:"Mitchell, Jelle B", t:"Klant",s:2,n:4,x:""},
+  {k:"Kloosterhotel ZIN",        p:"TWC Workplace",                 e:"Ron, Dennis",       t:"Klant",s:1,n:4,x:""},
+  {k:"Kloosterhotel ZIN",        p:"Vervanging Netwerk",            e:"Ron, Dennis",       t:"Klant",s:4,n:6,x:""},
+  {k:"PGZ Service",              p:"PCB Aanpassen infra",           e:"Dennis",            t:"Klant",s:2,n:4,x:""},
+  {k:"PGZ Service",              p:"Vervanging netwerk PCM",        e:"Dennis, Mitchell",  t:"Klant",s:2,n:4,x:""},
+  {k:"Geeqs",                    p:"Vervanging netwerk",            e:"Tom, Luke, Dennis", t:"Klant",s:3,n:4,x:""},
+  {k:"Van Doorne's Machinefab.", p:"Vervanging server",            e:"Stef L, Dennis",    t:"Klant",s:3,n:4,x:""},
+  {k:"Econox B.V.",              p:"Migratie Productieomgeving",    e:"Jan-Jaap",          t:"Klant",s:4,n:5,x:""},
+  {k:"Econox B.V.",              p:"Vervanging Netwerk",            e:"NNB",               t:"Sales",s:4,n:6,x:""},
+  {k:"Geevers Auto Parts",       p:"Verhuizing Westfield 1010",     e:"Bas, Mitchell",     t:"Sales",s:4,n:9,x:""},
+  {k:"Leermakers Accountants",   p:"FDS migratie",                 e:"Dennis",            t:"Klant",s:4,n:5,x:""},
+  {k:"Synaxion B.V.",            p:"Uitfaseren Servers",            e:"Bas",               t:"Klant",s:4,n:5,x:""},
+  {k:"TBRM Group B.V.",          p:"Blueprint startups",            e:"NNB",               t:"Sales",s:4,n:5,x:""},
+  {k:"TBRM Group B.V.",          p:"Vervanging hardware",           e:"NNB",               t:"Sales",s:4,n:5,x:""},
+  {k:"Th. Van Kasteren",         p:"TWC Workplace + Server",        e:"Bas",               t:"Sales",s:4,n:5,x:""},
+  {k:"Diego",                    p:"TWC 365Beheer",                 e:"NNB",               t:"Sales",s:5,n:6,x:""},
+  {k:"EFTiN",                    p:"TWC365Beheer",                  e:"NNB",               t:"Sales",s:5,n:5,x:""},
+  {k:"Metabletica",              p:"TWC Workplace",                 e:"NNB",               t:"Sales",s:6,n:7,x:""},
+  {k:"Bazelmans AV",             p:"Netwerk vervanging",            e:"Luke, Dennis",      t:"Sales",s:3,n:3,x:""},
+  {k:"Geeqs",                    p:"TWC Workplace",                 e:"Luke, Tom",         t:"Sales",s:12,n:12,x:""},
+  {k:"AddIT",                    p:"Uitfaseren datacenter",         e:"Bas, Dennis",       t:"Klant",s:2,n:3,x:"Afgerond"},
+  {k:"Econox B.V.",              p:"TWC Workplace",                 e:"Joei",              t:"Klant",s:1,n:3,x:"Afgerond"},
+  {k:"Fraters CMM",              p:"Verhuizing Schiphollaan 30",    e:"Tom",               t:"Klant",s:1,n:2,x:"Afgerond"},
+  {k:"Hoogerdijk Technical",     p:"TWC Workplace",                 e:"Bas, Jelle B",      t:"Klant",s:1,n:2,x:"Afgerond"},
+  {k:"PGZ Service",              p:"Windows 11 VDA upgrade",       e:"Dennis, Ron",       t:"Klant",s:1,n:2,x:"Afgerond"},
+  {k:"Van Diessen Keukens",      p:"Vervangen servers",             e:"Tom",               t:"Klant",s:1,n:2,x:"Afgerond"},
+];
+
+const ENG=["Bas","Dennis","Mitchell","Jelle B","Tom","Luke","Ron","Jan-Jaap","Joei","Stef L"];
+const MSS=["Jan","Feb","Mrt","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"];
+const MSF=["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"];
+const CUR=new Date().getMonth()+1; // automatisch huidige maand
+</script>
+
+<div class="page">
+  <div class="header">
+    <div>
+      <h1>JAARPLANNING PROJECTEN 2026 &nbsp;|&nbsp; TWC IT Solutions</h1>
+      <div class="header-sub">Bijgewerkt: <span id="datum"></span></div>
+    </div>
+    <div class="header-right" id="cur-lbl"></div>
   </div>
-  <div class="actions">
-    <button class="btn" onclick="toggleEdit()">+ Project toevoegen / bewerken</button>
-    <button class="btn primary" id="save-btn" onclick="saveData()">Opslaan</button>
-  </div>
-</div>
 
-<div id="edit-panel" class="edit-panel" style="display:none">
-  <h3>Projecten beheren</h3>
-  <div class="form-grid">
-    <div><label>Klant</label><input id="f-klant" placeholder="Naam klant"></div>
-    <div><label>Project</label><input id="f-proj" placeholder="Projectnaam"></div>
-    <div><label>Engineers</label><input id="f-eng" placeholder="Bijv. Bas, Dennis"></div>
-    <div><label>Type</label><select id="f-type"><option>Klant</option><option>Sales</option></select></div>
-    <div><label>Startmaand</label><select id="f-start"></select></div>
-    <div><label>Eindmaand</label><select id="f-end"></select></div>
-    <div class="form-row">
-      <button class="btn" onclick="clearForm()">Wissen</button>
-      <button class="btn primary" onclick="addProject()">Toevoegen</button>
+  <div class="main">
+    <!-- GANTT -->
+    <div class="gantt-panel">
+      <div class="panel-label">Projectplanning</div>
+      <div class="gantt-scroll">
+        <table id="gtbl"></table>
+      </div>
+    </div>
+
+    <!-- ENGINEERS -->
+    <div class="eng-panel">
+      <div class="panel-label">Engineer belasting</div>
+      <div class="eng-head-row" id="eg-head"></div>
+      <div class="eng-grid" id="eg-grid"></div>
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">
+        <div class="li"><span class="ld" style="background:#1a3d25"></span><span style="color:#4caf50">1-2 projecten &nbsp;ok</span></div>
+        <div class="li"><span class="ld" style="background:#3d2800"></span><span style="color:#ff9800">3 projecten &nbsp;druk</span></div>
+        <div class="li"><span class="ld" style="background:#3d0a0a"></span><span style="color:#f44336">4+ projecten &nbsp;overbelast</span></div>
+      </div>
     </div>
   </div>
-  <div class="proj-list" id="proj-list"></div>
-</div>
 
-<div id="tab-planning">
-  <div class="gantt-wrap"><table class="gantt-table" id="gtbl"></table></div>
-</div>
-<div id="tab-engineers" style="display:none">
-  <div class="eng-head" id="eng-head"></div>
-  <div class="eng-grid" id="eng-grid"></div>
-  <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-    <span style="font-size:11px;color:var(--color-text-secondary)">Legenda:</span>
-    <span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#EAF3DE;display:inline-block"></span><span style="color:#3B6D11">1-2 projecten</span></span>
-    <span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#FAEEDA;display:inline-block"></span><span style="color:#854F0B">3 druk</span></span>
-    <span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#FCEBEB;display:inline-block"></span><span style="color:#A32D2D">4+ overbelast</span></span>
+  <div class="legend">
+    <span style="font-size:10px;color:#444;font-weight:600;letter-spacing:.5px">LEGENDA</span>
+    <span class="li"><span class="ld" style="background:#3d1f07;border:1px solid #5a3010"></span><span style="color:#e8934a">Klant-project</span></span>
+    <span class="li"><span class="ld" style="background:#0d2440;border:1px solid #1a3f6e"></span><span style="color:#5b9bd5">Sales-project</span></span>
+    <span style="font-size:10px;color:#333;margin-left:auto">Oranje kolom = huidige maand &nbsp;|&nbsp; NNB-projecten en afgeronde projecten worden niet getoond</span>
   </div>
-</div>
 </div>
 
 <script>
-const MS=['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
-const MSS=['Jan','Feb','Mrt','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
-const NNB=13;
-const CUR=new Date().getMonth()+1;
-const ENG=['Bas','Dennis','Mitchell','Jelle B','Tom','Luke','Ron','Jan-Jaap','Joei','Stef L'];
+const MONTHS = [];
+for(let m=CUR;m<=12;m++) MONTHS.push(m); // alleen huidige t/m december
 
-const DEF=[
-  {k:'ASV Automobielbedrijven',p:'Vervanging infrastructuur',   e:'Mitchell, Dennis',  t:'Klant',s:1,en:4,st:''},
-  {k:'Connection-SGGZ',        p:'RBAC-Datamigratie Sharepoint',e:'Mitchell, Jelle B', t:'Klant',s:2,en:4,st:''},
-  {k:'Kloosterhotel ZIN',      p:'TWC Workplace',               e:'Ron, Dennis',       t:'Klant',s:1,en:4,st:''},
-  {k:'Kloosterhotel ZIN',      p:'Vervanging Netwerk',          e:'Ron, Dennis',       t:'Klant',s:4,en:6,st:''},
-  {k:'PGZ Service',            p:'PCB Aanpassen infra',         e:'Dennis',            t:'Klant',s:2,en:4,st:''},
-  {k:'PGZ Service',            p:'Vervanging netwerk PCM',      e:'Dennis, Mitchell',  t:'Klant',s:2,en:4,st:''},
-  {k:'Geeqs',                  p:'Vervanging netwerk',          e:'Tom, Luke, Dennis', t:'Klant',s:3,en:4,st:''},
-  {k:"Van Doorne's",           p:'Vervanging server',           e:'Stef L, Dennis',    t:'Klant',s:3,en:4,st:''},
-  {k:'Econox B.V.',            p:'Migratie Productieomgeving',  e:'Jan-Jaap',          t:'Klant',s:4,en:5,st:''},
-  {k:'Econox B.V.',            p:'Vervanging Netwerk',          e:'NNB',               t:'Sales',s:4,en:6,st:''},
-  {k:'Geevers Auto Parts',     p:'Verhuizing Westfield 1010',   e:'Bas, Mitchell',     t:'Sales',s:4,en:9,st:''},
-  {k:'Leermakers Accountants', p:'FDS migratie',               e:'Dennis',            t:'Klant',s:4,en:5,st:''},
-  {k:'Synaxion B.V.',          p:'Uitfaseren Servers',          e:'Bas',               t:'Klant',s:4,en:5,st:''},
-  {k:'TBRM Group B.V.',        p:'Blueprint startups',          e:'NNB',               t:'Sales',s:4,en:5,st:''},
-  {k:'TBRM Group B.V.',        p:'Vervanging hardware',         e:'NNB',               t:'Sales',s:4,en:5,st:''},
-  {k:'Th. Van Kasteren',       p:'TWC Workplace + Server',      e:'Bas',               t:'Sales',s:4,en:5,st:''},
-  {k:'Diego',                  p:'TWC 365Beheer',               e:'NNB',               t:'Sales',s:5,en:6,st:''},
-  {k:'EFTiN',                  p:'TWC365Beheer',                e:'NNB',               t:'Sales',s:5,en:5,st:''},
-  {k:'Metabletica',            p:'TWC Workplace',               e:'NNB',               t:'Sales',s:6,en:7,st:''},
-  {k:'Bazelmans AV',           p:'Netwerk vervanging',          e:'Luke, Dennis',      t:'Sales',s:3,en:3,st:''},
-  {k:'Geeqs',                  p:'TWC Workplace',               e:'Luke, Tom',         t:'Sales',s:12,en:12,st:''},
-  {k:'013 Poppodium',          p:'TWC Workplace',               e:'NNB',               t:'Sales',s:NNB,en:NNB,st:''},
-  {k:"Bobo's",                 p:'TWC Workplace',               e:'NNB',               t:'Sales',s:NNB,en:NNB,st:''},
-  {k:'Celegence',              p:'Nieuwe infrastructuur',       e:'Bas, Jelle B',      t:'Sales',s:NNB,en:NNB,st:''},
-  {k:'DPI',                    p:'Nieuwe infrastructuur',       e:'NNB',               t:'Sales',s:NNB,en:NNB,st:''},
-  {k:'WTC/e',                  p:'TWC Workplace',               e:'NNB',               t:'Sales',s:NNB,en:NNB,st:''},
-  {k:'AddIT',                  p:'Uitfaseren datacenter',       e:'Bas, Dennis',       t:'Klant',s:2,en:3,st:'Afgerond'},
-  {k:'Econox B.V.',            p:'TWC Workplace',               e:'Joei',              t:'Klant',s:1,en:3,st:'Afgerond'},
-  {k:'Fraters CMM',            p:'Verhuizing Schiphollaan 30',  e:'Tom',               t:'Klant',s:1,en:2,st:'Afgerond'},
-  {k:'Hoogerdijk Technical',   p:'TWC Workplace',               e:'Bas, Jelle B',      t:'Klant',s:1,en:2,st:'Afgerond'},
-  {k:'PGZ Service',            p:'Windows 11 VDA upgrade',     e:'Dennis, Ron',       t:'Klant',s:1,en:2,st:'Afgerond'},
-  {k:'Van Diessen Keukens',    p:'Vervangen servers',           e:'Tom',               t:'Klant',s:1,en:2,st:'Afgerond'},
-];
+// Alleen actieve projecten die nog lopen (einddatum >= huidige maand, niet afgerond)
+const active = DATA
+  .filter(p => p.x !== 'Afgerond' && p.n >= CUR && p.s <= 12)
+  .sort((a,b) => a.s - b.s || a.k.localeCompare(b.k));
 
-let proj=DEF;
+// Kolombreedtes berekenen
+const nMonths = MONTHS.length; // bijv. 9 (apr-dec)
+// Totale breedte beschikbaar voor maandkolommen (na aftrek klant+project kolom)
+// Klant=170px Project=220px Engineer panel=360px + gaps
+// Gantt breedte = 1920 - 56(padding) - 14(gap) - 360(eng) = 1490px
+// Klant+Project = 390px, rest voor maanden
+// Maar we gebruiken table-layout:fixed, dus gewoon auto verdelen
 
-async function loadData(){
-  try{const r=await window.storage.get('twc26');if(r)proj=JSON.parse(r.value);}catch(e){}
-  render();
-}
-async function saveData(){
-  try{
-    await window.storage.set('twc26',JSON.stringify(proj));
-    const b=document.getElementById('save-btn');
-    b.textContent='Opgeslagen!';setTimeout(()=>b.textContent='Opslaan',1600);
-  }catch(e){}
-}
+function buildGantt(){
+  const colgroup = MONTHS.map(()=>'<col>').join('');
+  let h = `<colgroup><col style="width:170px"><col style="width:220px">${colgroup}</colgroup>`;
+  h += '<thead><tr><th class="lbl">Klant</th><th class="lbl2">Project</th>';
+  MONTHS.forEach(m => {
+    h += `<th class="${m===CUR?'cur':''}">${MSS[m-1]}</th>`;
+  });
+  h += '</tr></thead><tbody>';
 
-function showTab(t){
-  document.getElementById('tab-planning').style.display=t==='planning'?'':'none';
-  document.getElementById('tab-engineers').style.display=t==='engineers'?'':'none';
-  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='planning')||(i===1&&t==='engineers')));
-}
-
-function toggleEdit(){
-  const p=document.getElementById('edit-panel');
-  p.style.display=p.style.display==='none'?'':'none';
-  if(p.style.display!=='none')renderList();
-}
-function clearForm(){
-  ['f-klant','f-proj','f-eng'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('f-type').value='Klant';
-  document.getElementById('f-start').value='4';
-  document.getElementById('f-end').value='4';
-}
-function addProject(){
-  const k=document.getElementById('f-klant').value.trim();
-  const p=document.getElementById('f-proj').value.trim();
-  if(!k||!p){alert('Klant en project zijn verplicht');return;}
-  proj.push({k,p,e:document.getElementById('f-eng').value.trim()||'NNB',
-    t:document.getElementById('f-type').value,
-    s:parseInt(document.getElementById('f-start').value),
-    en:parseInt(document.getElementById('f-end').value),st:''});
-  clearForm();render();renderList();
-}
-function delProj(i){proj.splice(i,1);render();renderList();}
-function toggleDone(i){proj[i].st=proj[i].st==='Afgerond'?'':'Afgerond';render();renderList();}
-
-function renderList(){
-  const el=document.getElementById('proj-list');
-  const sorted=[...proj.map((p,i)=>({...p,i}))].sort((a,b)=>(a.st==='Afgerond')-(b.st==='Afgerond'));
-  el.innerHTML=sorted.map(p=>{
-    const sn=p.s<=12?MSS[p.s-1]:'NNB';
-    const en2=p.en<=12?MSS[p.en-1]:'NNB';
-    const tcls=p.st==='Afgerond'?'tag-d':p.t==='Klant'?'tag-k':'tag-s';
-    const ttxt=p.st==='Afgerond'?'Afgerond':p.t;
-    return `<div class="proj-item">
-      <div>
-        <div style="font-weight:500">${p.k} <span style="font-weight:400;color:var(--color-text-secondary)">- ${p.p}</span></div>
-        <div class="pi-sub">${p.e} &middot; ${sn}-${en2} &middot; <span class="tag ${tcls}">${ttxt}</span></div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn" onclick="toggleDone(${p.i})" style="font-size:10px;padding:2px 7px">${p.st==='Afgerond'?'Terug':'Klaar'}</button>
-        <button class="del-btn" onclick="delProj(${p.i})">x</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function render(){renderGantt();renderEng();}
-
-function renderGantt(){
-  const active=proj.filter(p=>p.s<=12&&p.st!=='Afgerond').sort((a,b)=>a.s-b.s||(a.k.localeCompare(b.k)));
-  const nnb=proj.filter(p=>p.s===NNB&&p.st!=='Afgerond');
-  let h='<thead><tr><th class="lbl">Klant</th><th class="lbl2">Project</th>';
-  for(let m=1;m<=12;m++){
-    const c=m<CUR?'past-hdr':m===CUR?'cur-hdr':'';
-    h+=`<th class="${c}">${MSS[m-1]}</th>`;
-  }
-  h+='</tr></thead><tbody>';
-  active.forEach(p=>{
-    h+='<tr>';
-    h+=`<td class="lbl" title="${p.k}">${p.k}</td><td class="lbl2" title="${p.p}">${p.p}</td>`;
-    for(let m=1;m<=12;m++){
-      const past=m<CUR,cur=m===CUR;
-      let cc='mc';
-      if(past)cc+=' past-c';if(cur)cc+=' cur-c';
-      h+=`<td class="${cc}">`;
-      if(m>=p.s&&m<=p.en){
-        const bc=`bar bar-${p.t==='Klant'?'klant':'sales'}${past?' past':''}`;
-        h+=`<span class="${bc}" title="${p.e}">${m===p.s?p.e:'&middot;'}</span>`;
+  active.forEach(p => {
+    h += '<tr>';
+    h += `<td class="lbl" title="${p.k}">${p.k}</td>`;
+    h += `<td class="lbl2" title="${p.p}">${p.p}</td>`;
+    MONTHS.forEach(m => {
+      const isCur = m === CUR;
+      h += `<td class="mc${isCur?' cur-c':''}">`;
+      if(m >= p.s && m <= p.n){
+        const bc = p.t==='Klant' ? 'bk' : 'bs';
+        const label = m === p.s ? p.e : '&middot;';
+        h += `<span class="bar ${bc}" title="${p.e}">${label}</span>`;
       }
-      h+='</td>';
-    }
-    h+='</tr>';
-  });
-  // Telrij
-  h+='<tr class="cnt-row"><td class="lbl">Actief per maand</td><td class="lbl2"></td>';
-  for(let m=1;m<=12;m++){
-    const cnt=active.filter(p=>p.s<=m&&p.en>=m).length;
-    h+=`<td>${cnt||''}</td>`;
-  }
-  h+='</tr>';
-  // NNB
-  if(nnb.length){
-    h+=`<tr class="sep-row"><td colspan="14">NNB / In voorbereiding (${nnb.length} projecten)</td></tr>`;
-    nnb.forEach(p=>{
-      h+='<tr>';
-      h+=`<td class="lbl" style="color:var(--color-text-tertiary)">${p.k}</td><td class="lbl2" style="color:var(--color-text-tertiary)">${p.p}</td>`;
-      for(let m=1;m<=12;m++)h+=`<td class="mc" style="background:var(--color-background-tertiary)"></td>`;
-      h+='</tr>';
+      h += '</td>';
     });
-  }
-  h+='</tbody>';
-  document.getElementById('gtbl').innerHTML=h;
+    h += '</tr>';
+  });
+
+  // Telrij
+  h += '<tr class="cnt-row"><td class="lbl">Actief</td><td class="lbl2"></td>';
+  MONTHS.forEach(m => {
+    const cnt = active.filter(p => p.s<=m && p.n>=m).length;
+    h += `<td>${cnt||''}</td>`;
+  });
+  h += '</tr></tbody>';
+  document.getElementById('gtbl').innerHTML = h;
 }
 
-function renderEng(){
-  const active=proj.filter(p=>p.s<=12&&p.st!=='Afgerond');
-  let h='<div class="lbl-h">Engineer</div>';
-  for(let m=1;m<=12;m++){
-    const c=m<CUR?'past-hdr':m===CUR?'cur-hdr':'';
-    h+=`<div class="${c}">${MSS[m-1]}</div>`;
-  }
-  document.getElementById('eng-head').innerHTML=h;
-  document.getElementById('eng-grid').innerHTML=ENG.map(eng=>{
-    let r=`<div class="eng-name">${eng}</div>`;
-    for(let m=1;m<=12;m++){
-      const past=m<CUR;
-      if(past){r+=`<div class="eng-cell epast"></div>`;continue;}
-      const cnt=active.filter(p=>p.e.toLowerCase().includes(eng.toLowerCase())&&p.s<=m&&p.en>=m).length;
-      const c=cnt===0?'e0':cnt<=2?'e1':cnt===3?'e3':'e4';
-      r+=`<div class="eng-cell ${c}">${cnt||''}</div>`;
-    }
-    return `<div class="eng-row">${r}</div>`;
+function buildEng(){
+  // Hoogte berekenen: beschikbaar = 1080 - header(~72) - legend(~34) - gaps(~50) - panellabel(~24) = ~900px
+  // Per engineer: name + cells. We have 10 engineers.
+  const engCols = `130px repeat(${nMonths},1fr)`;
+
+  // Header
+  let hh = `<div style="display:grid;grid-template-columns:${engCols};gap:3px">`;
+  hh += '<div class="eh" style="text-align:left;padding-left:8px;background:none;color:#444">Engineer</div>';
+  MONTHS.forEach(m => {
+    hh += `<div class="eh${m===CUR?' cur':''}">${MSS[m-1]}</div>`;
+  });
+  hh += '</div>';
+  document.getElementById('eg-head').innerHTML = hh;
+
+  // Grid
+  document.getElementById('eg-grid').style.gridTemplateColumns = '1fr';
+  document.getElementById('eg-grid').innerHTML = ENG.map(eng => {
+    let r = `<div class="eng-row" style="grid-template-columns:${engCols}">`;
+    r += `<div class="eng-name">${eng}</div>`;
+    MONTHS.forEach(m => {
+      const cnt = active.filter(p =>
+        p.e.toLowerCase().includes(eng.toLowerCase()) && p.s<=m && p.n>=m
+      ).length;
+      const cls = cnt===0?'e0':cnt<=2?'e1':cnt===3?'e3':'e4';
+      r += `<div class="ec ${cls}">${cnt||''}</div>`;
+    });
+    r += '</div>';
+    return r;
   }).join('');
 }
 
-// Populate selects
-['f-start','f-end'].forEach(id=>{
-  const sel=document.getElementById(id);
-  MS.forEach((m,i)=>{
-    const o=document.createElement('option');
-    o.value=i+1;o.textContent=m;sel.appendChild(o);
-  });
-  const o=document.createElement('option');
-  o.value=NNB;o.textContent='NNB (datum onbekend)';sel.appendChild(o);
-  sel.value=CUR;
-});
+// Header info
+const now = new Date();
+document.getElementById('datum').textContent = now.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+document.getElementById('cur-lbl').innerHTML = `Huidige maand<span>${MSF[CUR-1]} ${now.getFullYear()}</span>`;
 
-const d=new Date();
-document.getElementById('cur-lbl').textContent='Huidige maand: '+MS[CUR-1]+' '+d.getFullYear();
-loadData();
+buildGantt();
+buildEng();
 </script>
+</body>
+</html>
