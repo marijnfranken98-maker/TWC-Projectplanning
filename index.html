@@ -2,250 +2,361 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<title>TWC Jaarplanning 2026</title>
+<meta name="viewport" content="width=1920">
+<title>TWC Projectplanning 2026</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1920px;height:1080px;overflow:hidden;background:#141414;color:#f0f0f0;font-family:'Segoe UI',Arial,sans-serif}
-.page{width:1920px;height:1080px;padding:22px 28px;display:flex;flex-direction:column;gap:14px}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* HEADER */
-.header{display:flex;justify-content:space-between;align-items:center;background:#1e1e1e;border-left:6px solid #C45B0E;padding:14px 20px;border-radius:3px;flex-shrink:0}
-.header h1{font-size:17px;font-weight:600;color:#fff;letter-spacing:.4px}
-.header-sub{font-size:11px;color:#666;margin-top:3px}
-.header-right{font-size:13px;color:#C45B0E;font-weight:700;text-align:right}
-.header-right span{display:block;color:#555;font-weight:400;font-size:11px;margin-top:2px}
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    background: #EFEFEF;
+    color: #2E2E2E;
+    min-height: 100vh;
+    padding: 20px 24px;
+  }
 
-/* MAIN LAYOUT */
-.main{display:flex;gap:14px;flex:1;min-height:0}
+  .page { max-width: 1872px; margin: 0 auto; }
 
-/* GANTT */
-.gantt-panel{flex:1;display:flex;flex-direction:column;min-width:0}
-.panel-label{font-size:10px;font-weight:700;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
-.gantt-scroll{flex:1;overflow:hidden}
-table{width:100%;border-collapse:collapse;table-layout:fixed}
-th{font-size:11px;font-weight:600;padding:8px 4px;text-align:center;color:#666;background:#1a1a1a;border-bottom:2px solid #111;letter-spacing:.4px}
-th.lbl{text-align:left;padding-left:10px;color:#999;width:170px}
-th.lbl2{text-align:left;padding-left:8px;color:#777;width:220px;font-weight:400}
-th.cur{background:#C45B0E;color:#fff;font-weight:700}
-td{font-size:11px;padding:2px 3px;border-bottom:1px solid #1e1e1e}
-tr:hover td{background:rgba(255,255,255,.02)}
-td.lbl{padding:5px 10px;font-weight:600;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#1c1c1c;border-right:1px solid #111}
-td.lbl2{padding:5px 8px;color:#777;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#1c1c1c;font-size:10px;border-right:1px solid #111}
-td.mc{padding:2px 2px;background:#181818}
-td.cur-c{background:#1f1208}
-.bar{display:block;width:100%;padding:4px 6px;border-radius:3px;font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
-.bk{background:#3d1f07;color:#e8934a;border:1px solid #5a3010}
-.bs{background:#0d2440;color:#5b9bd5;border:1px solid #1a3f6e}
-.mid{color:#555;text-align:center;font-size:11px;display:block;padding:4px}
-.cnt-row td{background:#111;font-size:12px;font-weight:700;padding:6px 4px;text-align:center;color:#C45B0E;border-top:2px solid #0a0a0a}
-.cnt-row td.lbl,.cnt-row td.lbl2{color:#444;text-align:left;font-size:10px;background:#111}
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fff; border-left: 5px solid #C45B0E;
+    padding: 14px 22px; margin-bottom: 14px; border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  .header-left h1 { font-size: 17px; font-weight: 700; color: #2E2E2E; }
+  .header-left p  { font-size: 11px; color: #AAA; margin-top: 3px; }
+  .header-right .cur-month { font-size: 13px; font-weight: 700; color: #C45B0E; text-align:right; }
+  .header-right .meta { font-size: 10px; color: #BBB; margin-top: 2px; text-align:right; }
 
-/* ENGINEER PANEL */
-.eng-panel{width:360px;flex-shrink:0;display:flex;flex-direction:column}
-.eng-grid{display:grid;gap:4px;flex:1}
-.eng-head-row{display:grid;gap:3px;margin-bottom:5px}
-.eng-row{display:grid;gap:3px;align-items:center}
-.eng-name{font-size:11px;font-weight:600;color:#bbb;padding:5px 10px;background:#1e1e1e;border-radius:3px;white-space:nowrap;overflow:hidden}
-.ec{text-align:center;font-size:12px;font-weight:700;padding:5px 2px;border-radius:3px}
-.eh{font-size:9px;font-weight:600;text-align:center;color:#555;padding:5px 2px;background:#1a1a1a;border-radius:3px;letter-spacing:.3px}
-.eh.cur{background:#C45B0E;color:#fff}
-.e0{background:#181818;color:#333}
-.e1,.e2{background:#1a3d25;color:#4caf50}
-.e3{background:#3d2800;color:#ff9800}
-.e4{background:#3d0a0a;color:#f44336}
+  /* LEGEND */
+  .legend {
+    display: flex; gap: 18px; align-items: center;
+    padding: 8px 14px; background: #fff; border-radius: 3px;
+    margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    font-size: 10.5px; color: #777;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot  { width: 13px; height: 13px; border-radius: 2px; flex-shrink: 0; }
+  .dot-klant   { background: #C45B0E; }
+  .dot-sales   { background: #1A6FB5; }
+  .dot-past    { background: #CCC; }
+  .legend .right { margin-left: auto; font-size: 9.5px; color: #CCC; }
 
-/* LEGENDA */
-.legend{display:flex;gap:16px;align-items:center;flex-shrink:0;padding-top:4px;border-top:1px solid #222}
-.li{display:flex;align-items:center;gap:5px;font-size:10px}
-.ld{width:14px;height:10px;border-radius:2px}
+  /* TABLE */
+  .grid-wrap {
+    background: #fff; border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.09); overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+
+  .col-klant   { width: 195px; }
+  .col-project { width: 235px; }
+  .col-month   { width: calc((100% - 430px) / 12); min-width: 62px; }
+
+  thead tr th {
+    background: #3C3C3C; font-size: 10px; font-weight: 700;
+    color: #AAA; padding: 9px 4px; text-align: center;
+    border-right: 1px solid #484848;
+    position: sticky; top: 0; z-index: 10;
+    letter-spacing: .5px; text-transform: uppercase;
+  }
+  thead tr th.col-klant,
+  thead tr th.col-project { text-align: left; padding-left: 12px; color: #CCC; border-right: 1px solid #484848; }
+  thead tr th.th-current  { background: #C45B0E !important; color: #fff !important; }
+  thead tr th.th-past     { color: #666 !important; }
+  thead tr th.th-future   { color: #999; }
+
+  tbody tr { border-bottom: 1px solid #F2F2F2; }
+  tbody tr:hover { background: #FDF5EF; }
+
+  td { height: 36px; vertical-align: middle; padding: 0 3px; font-size: 11px; }
+  td.col-klant {
+    padding-left: 12px; font-weight: 600; color: #2E2E2E; font-size: 11px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    border-right: 1px solid #F0F0F0;
+  }
+  td.col-project {
+    padding-left: 10px; color: #777; font-size: 10.5px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    border-right: 1px solid #F0F0F0;
+  }
+
+  td.col-past    { background: #FAFAFA; }
+  td.col-current { background: #FFF8F3; }
+
+  td.bar-cell { padding: 5px 3px; }
+
+  .bar {
+    display: block; width: 100%; border-radius: 3px;
+    padding: 3px 5px; font-size: 9px; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    height: 24px; line-height: 18px;
+  }
+  .bar-klant        { background: #C45B0E; color: #fff; }
+  .bar-klant.past   { background: #EABEAA; color: #C45B0E; }
+  .bar-sales        { background: #1A6FB5; color: #fff; }
+  .bar-sales.past   { background: #AACDE8; color: #1A6FB5; }
+
+  .bar.start  { border-radius: 4px 0 0 4px; }
+  .bar.mid    { border-radius: 0; }
+  .bar.end    { border-radius: 0 4px 4px 0; }
+  .bar.single { border-radius: 4px; }
+
+  /* Section rows */
+  tr.sec-row td {
+    background: #F7F7F7; font-size: 9.5px; font-weight: 700; color: #AAA;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 12px;
+    border-top: 2px solid #EBEBEB;
+    border-bottom: 1px solid #EBEBEB;
+  }
+
+  /* Count row */
+  tr.count-row td {
+    background: #F7F7F7; padding: 7px 3px;
+    text-align: center; font-size: 10px; font-weight: 700; color: #BBB;
+    border-top: 2px solid #E8E8E8;
+  }
+  tr.count-row td.col-klant {
+    text-align: left; padding-left: 12px; font-size: 10px; color: #999;
+  }
+  tr.count-row td .n { color: #C45B0E; font-size: 14px; }
+  tr.count-row td.col-past .n { color: #CCC; }
+  tr.count-row td.col-current .n { color: #C45B0E; font-size: 15px; }
+
+  /* NNB */
+  tr.nnb-row td.col-klant   { color: #BBB; font-weight: 500; font-size: 10.5px; }
+  tr.nnb-row td.col-project { color: #CCC; font-size: 10.5px; }
+  .nnb-tag {
+    display: inline-block; background: #F0F0F0; color: #C0C0C0;
+    font-size: 8.5px; border-radius: 3px; padding: 2px 8px;
+    font-weight: 700; letter-spacing: .5px;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block; font-size: 7.5px; font-weight: 700;
+    padding: 1px 4px; border-radius: 2px; letter-spacing: .5px;
+    vertical-align: middle; margin-left: 5px;
+  }
+  .badge-klant { background: #FAE8D9; color: #C45B0E; }
+  .badge-sales  { background: #E0EEF8; color: #1A6FB5; }
+
+  .footer {
+    margin-top: 12px; text-align: center;
+    font-size: 10px; color: #CCC;
+  }
 </style>
 </head>
 <body>
-<!--
-================================================================
-  PROJECTDATA - HIER AANPASSEN (open in Kladblok of Notepad++)
-================================================================
-
-  Velden per project:
-  k = Klantnaam
-  p = Projectnaam
-  e = Engineers (kommagescheiden)
-  t = "Klant" of "Sales"
-  s = Startmaand (1=Jan t/m 12=Dec)
-  n = Eindmaand
-  x = "" = actief  /  "Afgerond" = wordt niet getoond
-
-  Na aanpassen: opslaan en opnieuw uploaden naar GitHub.
-  De URL in Scala blijft hetzelfde.
-================================================================
--->
-<script>
-const DATA=[
-  {k:"ASV Automobielbedrijven",  p:"Vervanging infrastructuur",    e:"Mitchell, Dennis",  t:"Klant",s:1,n:4,x:""},
-  {k:"Connection-SGGZ",          p:"RBAC-Datamigratie Sharepoint",  e:"Mitchell, Jelle B", t:"Klant",s:2,n:4,x:""},
-  {k:"Kloosterhotel ZIN",        p:"TWC Workplace",                 e:"Ron, Dennis",       t:"Klant",s:1,n:4,x:""},
-  {k:"Kloosterhotel ZIN",        p:"Vervanging Netwerk",            e:"Ron, Dennis",       t:"Klant",s:4,n:6,x:""},
-  {k:"PGZ Service",              p:"PCB Aanpassen infra",           e:"Dennis",            t:"Klant",s:2,n:4,x:""},
-  {k:"PGZ Service",              p:"Vervanging netwerk PCM",        e:"Dennis, Mitchell",  t:"Klant",s:2,n:4,x:""},
-  {k:"Geeqs",                    p:"Vervanging netwerk",            e:"Tom, Luke, Dennis", t:"Klant",s:3,n:4,x:""},
-  {k:"Van Doorne's Machinefab.", p:"Vervanging server",            e:"Stef L, Dennis",    t:"Klant",s:3,n:4,x:""},
-  {k:"Econox B.V.",              p:"Migratie Productieomgeving",    e:"Jan-Jaap",          t:"Klant",s:4,n:5,x:""},
-  {k:"Econox B.V.",              p:"Vervanging Netwerk",            e:"NNB",               t:"Sales",s:4,n:6,x:""},
-  {k:"Geevers Auto Parts",       p:"Verhuizing Westfield 1010",     e:"Bas, Mitchell",     t:"Sales",s:4,n:9,x:""},
-  {k:"Leermakers Accountants",   p:"FDS migratie",                 e:"Dennis",            t:"Klant",s:4,n:5,x:""},
-  {k:"Synaxion B.V.",            p:"Uitfaseren Servers",            e:"Bas",               t:"Klant",s:4,n:5,x:""},
-  {k:"TBRM Group B.V.",          p:"Blueprint startups",            e:"NNB",               t:"Sales",s:4,n:5,x:""},
-  {k:"TBRM Group B.V.",          p:"Vervanging hardware",           e:"NNB",               t:"Sales",s:4,n:5,x:""},
-  {k:"Th. Van Kasteren",         p:"TWC Workplace + Server",        e:"Bas",               t:"Sales",s:4,n:5,x:""},
-  {k:"Diego",                    p:"TWC 365Beheer",                 e:"NNB",               t:"Sales",s:5,n:6,x:""},
-  {k:"EFTiN",                    p:"TWC365Beheer",                  e:"NNB",               t:"Sales",s:5,n:5,x:""},
-  {k:"Metabletica",              p:"TWC Workplace",                 e:"NNB",               t:"Sales",s:6,n:7,x:""},
-  {k:"Bazelmans AV",             p:"Netwerk vervanging",            e:"Luke, Dennis",      t:"Sales",s:3,n:3,x:""},
-  {k:"Geeqs",                    p:"TWC Workplace",                 e:"Luke, Tom",         t:"Sales",s:12,n:12,x:""},
-  {k:"AddIT",                    p:"Uitfaseren datacenter",         e:"Bas, Dennis",       t:"Klant",s:2,n:3,x:"Afgerond"},
-  {k:"Econox B.V.",              p:"TWC Workplace",                 e:"Joei",              t:"Klant",s:1,n:3,x:"Afgerond"},
-  {k:"Fraters CMM",              p:"Verhuizing Schiphollaan 30",    e:"Tom",               t:"Klant",s:1,n:2,x:"Afgerond"},
-  {k:"Hoogerdijk Technical",     p:"TWC Workplace",                 e:"Bas, Jelle B",      t:"Klant",s:1,n:2,x:"Afgerond"},
-  {k:"PGZ Service",              p:"Windows 11 VDA upgrade",       e:"Dennis, Ron",       t:"Klant",s:1,n:2,x:"Afgerond"},
-  {k:"Van Diessen Keukens",      p:"Vervangen servers",             e:"Tom",               t:"Klant",s:1,n:2,x:"Afgerond"},
-];
-
-const ENG=["Bas","Dennis","Mitchell","Jelle B","Tom","Luke","Ron","Jan-Jaap","Joei","Stef L"];
-const MSS=["Jan","Feb","Mrt","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"];
-const MSF=["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"];
-const CUR=new Date().getMonth()+1; // automatisch huidige maand
-</script>
-
 <div class="page">
+
   <div class="header">
-    <div>
-      <h1>JAARPLANNING PROJECTEN 2026 &nbsp;|&nbsp; TWC IT Solutions</h1>
-      <div class="header-sub">Bijgewerkt: <span id="datum"></span></div>
+    <div class="header-left">
+      <h1>TWC IT Solutions &nbsp;·&nbsp; Projectplanning 2026</h1>
+      <p>Alleen projecten met een vastgestelde planning worden getoond &nbsp;·&nbsp; NNB staat onderaan</p>
     </div>
-    <div class="header-right" id="cur-lbl"></div>
-  </div>
-
-  <div class="main">
-    <!-- GANTT -->
-    <div class="gantt-panel">
-      <div class="panel-label">Projectplanning</div>
-      <div class="gantt-scroll">
-        <table id="gtbl"></table>
-      </div>
-    </div>
-
-    <!-- ENGINEERS -->
-    <div class="eng-panel">
-      <div class="panel-label">Engineer belasting</div>
-      <div class="eng-head-row" id="eg-head"></div>
-      <div class="eng-grid" id="eg-grid"></div>
-      <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">
-        <div class="li"><span class="ld" style="background:#1a3d25"></span><span style="color:#4caf50">1-2 projecten &nbsp;ok</span></div>
-        <div class="li"><span class="ld" style="background:#3d2800"></span><span style="color:#ff9800">3 projecten &nbsp;druk</span></div>
-        <div class="li"><span class="ld" style="background:#3d0a0a"></span><span style="color:#f44336">4+ projecten &nbsp;overbelast</span></div>
-      </div>
+    <div class="header-right">
+      <div class="cur-month" id="curMonthLabel">–</div>
+      <div class="meta" id="metaLabel">2026</div>
     </div>
   </div>
 
   <div class="legend">
-    <span style="font-size:10px;color:#444;font-weight:600;letter-spacing:.5px">LEGENDA</span>
-    <span class="li"><span class="ld" style="background:#3d1f07;border:1px solid #5a3010"></span><span style="color:#e8934a">Klant-project</span></span>
-    <span class="li"><span class="ld" style="background:#0d2440;border:1px solid #1a3f6e"></span><span style="color:#5b9bd5">Sales-project</span></span>
-    <span style="font-size:10px;color:#333;margin-left:auto">Oranje kolom = huidige maand &nbsp;|&nbsp; NNB-projecten en afgeronde projecten worden niet getoond</span>
+    <div class="legend-item"><div class="legend-dot dot-klant"></div> Klant-gestuurd</div>
+    <div class="legend-item"><div class="legend-dot dot-sales"></div> Sales-gestuurd</div>
+    <div class="legend-item"><div class="legend-dot dot-past"></div> Verstreken maanden</div>
+    <span class="right">Huidige maand is oranje gemarkeerd &nbsp;·&nbsp; Klik op een rij om te selecteren</span>
   </div>
+
+  <div class="grid-wrap">
+    <table id="planTable">
+      <thead>
+        <tr id="monthHeader">
+          <th class="col-klant">Klant</th>
+          <th class="col-project">Project</th>
+        </tr>
+      </thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="footer" id="footerLabel"></div>
 </div>
 
 <script>
-const MONTHS = [];
-for(let m=CUR;m<=12;m++) MONTHS.push(m); // alleen huidige t/m december
+const DATA = [
+  // Actieve planning — Klant
+  {k:"ASV Automobielbedrijven",    p:"Vervanging Infrastructuur",          t:"Klant", s:1,  n:5},
+  {k:"Connection-SGGZ",            p:"RBAC-Datamigratie SharePoint",        t:"Klant", s:2,  n:4},
+  {k:"Geeqs",                      p:"Vervanging netwerk",                  t:"Klant", s:3,  n:4},
+  {k:"Kloosterhotel ZIN",          p:"TWC Workplace",                       t:"Klant", s:1,  n:4},
+  {k:"Van Doorne's Machinefabriek",p:"Vervanging server",                  t:"Klant", s:3,  n:4},
+  {k:"Kloosterhotel ZIN",          p:"Vervanging Netwerk",                  t:"Klant", s:4,  n:5},
+  {k:"Leermakers Accountants",     p:"FDS migratie",                        t:"Klant", s:4,  n:5},
+  {k:"Synaxion B.V.",              p:"Uitfaseren Servers",                  t:"Klant", s:4,  n:5},
+  {k:"PGZ Service",                p:"Vervanging netwerk PCM",              t:"Klant", s:5,  n:5},
+  {k:"Econox B.V.",                p:"Migratie Productieomgeving",          t:"Klant", s:6,  n:7},
+  // Actieve planning — Sales
+  {k:"Econox B.V.",                p:"Vervanging Netwerk",                  t:"Sales", s:4,  n:6},
+  {k:"Geevers Auto Parts",         p:"Verhuizing Westfield 1010",           t:"Sales", s:4,  n:9},
+  {k:"Bazelmans AV",               p:"Netwerk vervanging",                  t:"Sales", s:5,  n:5},
+  {k:"Diego",                      p:"TWC Workplace",                       t:"Sales", s:5,  n:6},
+  {k:"Metabletica",                p:"TWC Workplace",                       t:"Sales", s:6,  n:7},
+  {k:"TBRM Group B.V.",            p:"Blueprint startups",                  t:"Sales", s:5,  n:7},
+  {k:"TBRM Group B.V.",            p:"Vervanging hardware",                 t:"Sales", s:5,  n:7},
+  {k:"Th. Van Kasteren",           p:"TWC Workplace + Server",              t:"Sales", s:5,  n:6},
+  {k:"Geeqs",                      p:"TWC Workplace",                       t:"Sales", s:8,  n:12},
+  // NNB
+  {k:"013 Poppodium",              p:"TWC Workplace",                       t:"Sales", s:0,  n:0},
+  {k:"Bobo's",                     p:"TWC Workplace",                       t:"Sales", s:0,  n:0},
+  {k:"Celegence",                  p:"Nieuwe Infrastructuur",               t:"Sales", s:0,  n:0},
+  {k:"DPI",                        p:"Nieuwe infrastructuur",               t:"Sales", s:0,  n:0},
+  {k:"EFTIN",                      p:"TWC365Beheer",                        t:"Sales", s:0,  n:0},
+  {k:"Leermakers Accountants",     p:"Firewall redundant maken",            t:"Sales", s:0,  n:0},
+  {k:"PPJJ",                       p:"TWC 365Beheer",                       t:"Sales", s:0,  n:0},
+  {k:"Willems & Smeets Notarissen",p:"Nieuwe klant",                        t:"Sales", s:0,  n:0},
+  {k:"WTC/e",                      p:"TWC Workplace",                       t:"Sales", s:0,  n:0},
+];
 
-// Alleen actieve projecten die nog lopen (einddatum >= huidige maand, niet afgerond)
-const active = DATA
-  .filter(p => p.x !== 'Afgerond' && p.n >= CUR && p.s <= 12)
-  .sort((a,b) => a.s - b.s || a.k.localeCompare(b.k));
+const MONTHS      = ["Jan","Feb","Mrt","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"];
+const MONTHS_FULL = ["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"];
 
-// Kolombreedtes berekenen
-const nMonths = MONTHS.length; // bijv. 9 (apr-dec)
-// Totale breedte beschikbaar voor maandkolommen (na aftrek klant+project kolom)
-// Klant=170px Project=220px Engineer panel=360px + gaps
-// Gantt breedte = 1920 - 56(padding) - 14(gap) - 360(eng) = 1490px
-// Klant+Project = 390px, rest voor maanden
-// Maar we gebruiken table-layout:fixed, dus gewoon auto verdelen
+const TODAY  = new Date();
+const CUR_M  = TODAY.getMonth() + 1;
+const CUR_Y  = TODAY.getFullYear();
 
-function buildGantt(){
-  const colgroup = MONTHS.map(()=>'<col>').join('');
-  let h = `<colgroup><col style="width:170px"><col style="width:220px">${colgroup}</colgroup>`;
-  h += '<thead><tr><th class="lbl">Klant</th><th class="lbl2">Project</th>';
-  MONTHS.forEach(m => {
-    h += `<th class="${m===CUR?'cur':''}">${MSS[m-1]}</th>`;
-  });
-  h += '</tr></thead><tbody>';
+document.getElementById("curMonthLabel").textContent = MONTHS_FULL[CUR_M-1] + " " + CUR_Y;
 
-  active.forEach(p => {
-    h += '<tr>';
-    h += `<td class="lbl" title="${p.k}">${p.k}</td>`;
-    h += `<td class="lbl2" title="${p.p}">${p.p}</td>`;
-    MONTHS.forEach(m => {
-      const isCur = m === CUR;
-      h += `<td class="mc${isCur?' cur-c':''}">`;
-      if(m >= p.s && m <= p.n){
-        const bc = p.t==='Klant' ? 'bk' : 'bs';
-        const label = m === p.s ? p.e : '&middot;';
-        h += `<span class="bar ${bc}" title="${p.e}">${label}</span>`;
+const active = DATA.filter(d => d.s > 0).sort((a,b) => a.s !== b.s ? a.s-b.s : a.k.localeCompare(b.k));
+const nnb    = DATA.filter(d => d.s === 0).sort((a,b) => a.k.localeCompare(b.k));
+
+document.getElementById("metaLabel").textContent =
+  CUR_Y + "  ·  Intern overzicht  ·  " + active.length + " projecten ingepland  ·  " + nnb.length + " NNB";
+
+// Build month headers
+const thead = document.getElementById("monthHeader");
+for (let m = 1; m <= 12; m++) {
+  const th = document.createElement("th");
+  th.className = "col-month";
+  th.textContent = MONTHS[m-1];
+  if (m === CUR_M)      th.classList.add("th-current");
+  else if (m < CUR_M)   th.classList.add("th-past");
+  else                   th.classList.add("th-future");
+  thead.appendChild(th);
+}
+
+const tbody = document.getElementById("planBody");
+const countPerMonth = Array(13).fill(0);
+
+function addSecRow(label) {
+  const tr = document.createElement("tr");
+  tr.className = "sec-row";
+  tr.innerHTML = `<td colspan="14">${label}</td>`;
+  tbody.appendChild(tr);
+}
+
+function makeBarCell(m, proj) {
+  const td = document.createElement("td");
+  td.className = "bar-cell";
+  if (m < CUR_M)      td.classList.add("col-past");
+  else if (m === CUR_M) td.classList.add("col-current");
+
+  if (m >= proj.s && m <= proj.n) {
+    countPerMonth[m]++;
+    const bar = document.createElement("span");
+    const isPast = proj.n < CUR_M;
+    let cls = `bar bar-${proj.t.toLowerCase()}${isPast ? " past" : ""}`;
+    if (proj.s === proj.n) cls += " single";
+    else if (m === proj.s) cls += " start";
+    else if (m === proj.n) cls += " end";
+    else                   cls += " mid";
+    bar.className = cls;
+    if (m === proj.s) bar.textContent = proj.p;
+    td.appendChild(bar);
+  }
+  return td;
+}
+
+// Active rows
+addSecRow(`Projecten met vastgestelde planning &nbsp;—&nbsp; ${active.length} projecten`);
+
+active.forEach(proj => {
+  const tr = document.createElement("tr");
+  tr.style.cursor = "pointer";
+  tr.onclick = () => tr.style.background = tr._sel ? "" : "#FFF0E6",
+  tr._sel = false;
+
+  const tdK = document.createElement("td");
+  tdK.className = "col-klant";
+  tdK.title = proj.k;
+  tdK.textContent = proj.k;
+  tr.appendChild(tdK);
+
+  const tdP = document.createElement("td");
+  tdP.className = "col-project";
+  tdP.title = proj.p;
+  tdP.innerHTML = proj.p + ` <span class="badge badge-${proj.t.toLowerCase()}">${proj.t.toUpperCase()}</span>`;
+  tr.appendChild(tdP);
+
+  for (let m = 1; m <= 12; m++) tr.appendChild(makeBarCell(m, proj));
+  tbody.appendChild(tr);
+});
+
+// Count row
+const cRow = document.createElement("tr");
+cRow.className = "count-row";
+const tdCL = document.createElement("td");
+tdCL.className = "col-klant";
+tdCL.textContent = "Actieve projecten per maand";
+cRow.appendChild(tdCL);
+const tdCE = document.createElement("td");
+tdCE.className = "col-project";
+cRow.appendChild(tdCE);
+for (let m = 1; m <= 12; m++) {
+  const td = document.createElement("td");
+  td.className = "col-month";
+  if (m < CUR_M)      td.classList.add("col-past");
+  else if (m === CUR_M) td.classList.add("col-current");
+  const n = countPerMonth[m];
+  td.innerHTML = n > 0 ? `<span class="n">${n}</span>` : `<span style="color:#DDD">–</span>`;
+  cRow.appendChild(td);
+}
+tbody.appendChild(cRow);
+
+// NNB rows
+if (nnb.length > 0) {
+  addSecRow(`Nog niet begroot / planning nog niet vastgesteld &nbsp;—&nbsp; ${nnb.length} projecten`);
+  nnb.forEach((proj, idx) => {
+    const tr = document.createElement("tr");
+    tr.className = "nnb-row";
+
+    const tdK = document.createElement("td");
+    tdK.className = "col-klant";
+    tdK.textContent = proj.k;
+    tr.appendChild(tdK);
+
+    const tdP = document.createElement("td");
+    tdP.className = "col-project";
+    tdP.innerHTML = proj.p + ` <span class="badge badge-${proj.t.toLowerCase()}">${proj.t.toUpperCase()}</span>`;
+    tr.appendChild(tdP);
+
+    for (let m = 1; m <= 12; m++) {
+      const td = document.createElement("td");
+      td.className = "bar-cell";
+      if (m === 6 && idx === Math.floor(nnb.length / 2)) {
+        td.innerHTML = `<span class="nnb-tag">NNB</span>`;
       }
-      h += '</td>';
-    });
-    h += '</tr>';
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
   });
-
-  // Telrij
-  h += '<tr class="cnt-row"><td class="lbl">Actief</td><td class="lbl2"></td>';
-  MONTHS.forEach(m => {
-    const cnt = active.filter(p => p.s<=m && p.n>=m).length;
-    h += `<td>${cnt||''}</td>`;
-  });
-  h += '</tr></tbody>';
-  document.getElementById('gtbl').innerHTML = h;
 }
 
-function buildEng(){
-  // Hoogte berekenen: beschikbaar = 1080 - header(~72) - legend(~34) - gaps(~50) - panellabel(~24) = ~900px
-  // Per engineer: name + cells. We have 10 engineers.
-  const engCols = `130px repeat(${nMonths},1fr)`;
-
-  // Header
-  let hh = `<div style="display:grid;grid-template-columns:${engCols};gap:3px">`;
-  hh += '<div class="eh" style="text-align:left;padding-left:8px;background:none;color:#444">Engineer</div>';
-  MONTHS.forEach(m => {
-    hh += `<div class="eh${m===CUR?' cur':''}">${MSS[m-1]}</div>`;
-  });
-  hh += '</div>';
-  document.getElementById('eg-head').innerHTML = hh;
-
-  // Grid
-  document.getElementById('eg-grid').style.gridTemplateColumns = '1fr';
-  document.getElementById('eg-grid').innerHTML = ENG.map(eng => {
-    let r = `<div class="eng-row" style="grid-template-columns:${engCols}">`;
-    r += `<div class="eng-name">${eng}</div>`;
-    MONTHS.forEach(m => {
-      const cnt = active.filter(p =>
-        p.e.toLowerCase().includes(eng.toLowerCase()) && p.s<=m && p.n>=m
-      ).length;
-      const cls = cnt===0?'e0':cnt<=2?'e1':cnt===3?'e3':'e4';
-      r += `<div class="ec ${cls}">${cnt||''}</div>`;
-    });
-    r += '</div>';
-    return r;
-  }).join('');
-}
-
-// Header info
-const now = new Date();
-document.getElementById('datum').textContent = now.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-document.getElementById('cur-lbl').innerHTML = `Huidige maand<span>${MSF[CUR-1]} ${now.getFullYear()}</span>`;
-
-buildGantt();
-buildEng();
+document.getElementById("footerLabel").textContent =
+  `TWC IT Solutions B.V.  ·  Projectplanning ${CUR_Y}  ·  Intern document  ·  Bijgewerkt: ${TODAY.toLocaleDateString('nl-NL')}`;
 </script>
 </body>
+</html>
 </html>
