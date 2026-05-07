@@ -165,8 +165,8 @@
   </div>
 
   <div class="legend">
-    <div class="legend-item"><div class="ld ld-k"></div>Klant-gestuurd</div>
-    <div class="legend-item"><div class="ld ld-s"></div>Sales-gestuurd</div>
+    <div class="legend-item"><div class="ld ld-k"></div>Klant</div>
+    <div class="legend-item"><div class="ld ld-s"></div>Sales</div>
   </div>
 
   <div class="grid-wrap">
@@ -252,7 +252,7 @@ function cc(m){return m<CM?"cp":m===CM?"cc":"";}
 secRow(`Projecten met vastgestelde planning &nbsp;—&nbsp; <strong>${active.length}</strong> projecten`);
 
 active.forEach(proj=>{
-  // Projecten die volledig in het verleden liggen (vóór april) overslaan
+  // Projecten die volledig in het verleden liggen (vóór mei) overslaan
   if(proj.n < START_MONTH) return;
 
   const isPast=proj.n<CM;
@@ -272,7 +272,7 @@ active.forEach(proj=>{
   tdP.innerHTML=proj.p+badge;
   tr.appendChild(tdP);
 
-  // Effectieve start: max van werkelijke start en april
+  // Effectieve start: max van werkelijke start en mei
   const effStart = Math.max(proj.s, START_MONTH);
 
   for(let m=START_MONTH;m<=12;m++){
