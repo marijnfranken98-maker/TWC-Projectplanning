@@ -183,21 +183,23 @@
 
 <script>
 const DATA = [
-{k:"ASV Automobielbedrijven",     p:"Vervanging Infrastructuur",      e:"Mitchell, Dennis", t:"K", s:5, n:5},
-  {k:"Kloosterhotel ZIN",           p:"Vervanging Netwerk",             e:"Ron, Dennis",      t:"K", s:5, n:6},
-  {k:"Leermakers Accountants",      p:"FDS migratie",                   e:"Dennis",           t:"K", s:5, n:7},
-  {k:"Synaxion B.V.",               p:"Uitfaseren Servers",             e:"Bas",              t:"K", s:5, n:7},
-  {k:"PGZ Service",                 p:"Vervanging netwerk PCM",         e:"Dennis, Mitchell", t:"K", s:5, n:5},
-  {k:"Econox B.V.",                 p:"Migratie Productieomgeving",     e:"Jan-Jaap, Bas",    t:"K", s:5, n:7},
-  {k:"Econox B.V.",                 p:"Vervanging Netwerk",             e:"Bas, Jan-Jaap",    t:"S", s:5, n:7},
-  {k:"Geevers Auto Parts",          p:"Verhuizing Westfield 1010",      e:"Bas, Mitchell",    t:"S", s:5, n:11},
+{k:"ASV Automobielbedrijven",     p:"Vervanging Infrastructuur",      e:"Mitchell, Dennis", t:"K", s:6, n:6},
+  {k:"Kloosterhotel ZIN",           p:"Vervanging Netwerk",             e:"Ron, Dennis",      t:"K", s:6, n:7},
+  {k:"Leermakers Accountants",      p:"FDS migratie",                   e:"Dennis",           t:"K", s:6, n:7},
+  {k:"Synaxion B.V.",               p:"Uitfaseren Servers",             e:"Bas",              t:"K", s:6, n:7},
+  {k:"Econox B.V.",                 p:"Migratie Productieomgeving",     e:"Jan-Jaap, Bas",    t:"K", s:6, n:8},
+  {k:"Econox B.V.",                 p:"Vervanging Netwerk",             e:"Bas, Jan-Jaap",    t:"S", s:6, n:7},
+  {k:"Geevers Auto Parts",          p:"Verhuizing Westfield 1010",      e:"Bas, Mitchell",    t:"S", s:6, n:11},
   {k:"Bazelmans AV",                p:"Netwerk vervanging",             e:"Luke, Dennis",     t:"S", s:7, n:7},
-  {k:"Diego",                       p:"TWC Workplace",                  e:"Luke",             t:"S", s:6, n:6},
+  {k:"Diego",                       p:"TWC Workplace",                  e:"Luke",             t:”K”, s:6, n:6},
   {k:"Metabletica",                 p:"TWC Workplace",                  e:"Tom",              t:"S", s:7, n:8},
-  {k:"TBRM Group B.V.",             p:"Blueprint startups",             e:"Jelle B",          t:"S", s:7, n:9},
-  {k:"TBRM Group B.V.",             p:"Vervanging hardware",            e:"Jelle B",          t:"K", s:5, n:8},
+  {k:"TBRM Group B.V.",             p:"Blueprint startups",             e:"Jelle B",          t:”K”, s:7, n:9},
+  {k:"TBRM Group B.V.",             p:"Vervanging hardware",            e:"Jelle B",          t:"K", s:6, n:7},
   {k:"Th. Van Kasteren",            p:"TWC Workplace + Server",         e:"Bas",              t:"S", s:7, n:7},  
   {k:"Geeqs",                       p:"TWC Workplace",                  e:"Luke, Tom",        t:"S", s:8, n:9},
+  {k:"Geevers Auto Parts”,                       p:”RBAC Implementatie”,                  e:”Mitchell”,        t:”K”, s:6, n:7},
+  {k:”Adfive B.V.”,                       p:"TWC 365Beheer”,                  e:"Luke, Bart",        t:”K”, s:6, n:6},
+  {k:”Smartclinicalproducts”,                       p:"TWC 365Beheer”,                  e:"Luke, Bart”,        t:"S", s:7, n:7},
   // NNB
   {k:"013 Poppodium",               p:"TWC Workplace",                  e:"",   t:"S", s:0, n:0},
   {k:"Bobo's",                      p:"TWC Workplace",                  e:"",   t:"S", s:0, n:0},
@@ -217,7 +219,7 @@ const DATA = [
 const MON  = ["Jan","Feb","Mrt","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"];
 const MFUL = ["Januari","Februari","Maart","April","Mei","Juni","Juli",
               "Augustus","September","Oktober","November","December"];
-const START_MONTH = 5; // Planning toont vanaf mei
+const START_MONTH = 6; // Planning toont vanaf juni
 const VIS_COUNT   = 12 - START_MONTH + 1; // aantal zichtbare maandkolommen
 const COLSPAN     = VIS_COUNT + 2;        // + klant + project kolom
 const now  = new Date();
@@ -255,7 +257,7 @@ function cc(m){return m<CM?"cp":m===CM?"cc":"";}
 secRow(`Projecten met vastgestelde planning &nbsp;—&nbsp; <strong>${active.length}</strong> projecten`);
 
 active.forEach(proj=>{
-  // Projecten die volledig in het verleden liggen (vóór mei) overslaan
+  // Projecten die volledig in het verleden liggen (vóór juni) overslaan
   if(proj.n < START_MONTH) return;
 
   const isPast=proj.n<CM;
