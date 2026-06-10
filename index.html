@@ -387,7 +387,8 @@ const telling=Array(13).fill(0);
 gepland.slice().sort((a,b)=>a.start!==b.start?a.start-b.start:a.klant.localeCompare(b.klant,"nl"))
 .forEach(p=>{
   const tr=document.createElement("tr");
-  tr.innerHTML=`<td class="c-proj" title="${p.project}">${p.project}</td>`;
+  tr.innerHTML=`<td class="c-klant" title="${p.klant}">${p.klant}</td>
+    <td class="c-proj" title="${p.project}">${p.project}</td>`;
   const effStart=Math.max(p.start,startM);
   for(let m=startM;m<=12;m++){
     const td=document.createElement("td"); td.className="mcel"+(m===CM?" nu":"");
