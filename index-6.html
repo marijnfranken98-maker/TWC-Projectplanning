@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>TWC Projectplanning</title>
+<!--
+═══════════════════════════════════════════════════════════════════════════
+  TWC IT SOLUTIONS · PROJECTPLANNING KANTINESCHERM
+═══════════════════════════════════════════════════════════════════════════
+
+  WEKELIJKS UPDATEN — je hoeft ALLEEN het blok "PROJECTEN" hieronder
+  aan te passen (in de <script> direct hieronder). Verder niets.
+
+  Per project één regel:
+
+  { klant:"Naam klant", project:"Naam project", wie:"Bas, Mitchell",
+    type:"klant", start:6, eind:11 },
+
+  • wie    → engineer(s), gescheiden door komma. Leeg ("") = nog niemand.
+  • type   → "klant" (oranje) of "sales" (blauw)
+  • start  → maandnummer (1 = jan ... 12 = dec)
+  • eind   → maandnummer (laatste maand van het project)
+  • Nog niet ingepland? Zet start:0, eind:0  → wordt NERGENS getoond
+    (handig om de regel alvast klaar te zetten tot er een planning is).
+
+  Project klaar of vervallen? Verwijder de regel (of laat staan:
+  afgeronde maanden verdwijnen vanzelf uit beeld).
+
+  Instellingen (rotatiesnelheid e.d.) staan in het blok "INSTELLINGEN".
+═══════════════════════════════════════════════════════════════════════════
+-->
+<script>
+/* ════════════ PROJECTEN — wekelijks bijwerken ════════════ */
+const PROJECTEN = [
+    { klant:"ASV Automobielbedrijven",     project:"Vervanging Infrastructuur",  wie:"Mitchell, Dennis", type:"klant", start:6, eind:6 },
+  { klant:"ASV Automobielbedrijven",     project:"Update Esx + Vcenter naar build 8",  wie:"Mitchell", type:"klant", start:6, eind:8 },
+  { klant:"Kloosterhotel ZIN",           project:"Vervanging Netwerk",         wie:"Ron, Dennis",      type:"klant", start:6, eind:8 },
+  { klant:"Leermakers Accountants",      project:"FDS migratie",               wie:"Dennis, Ron",           type:"klant", start:6, eind:7 },
+  { klant:"Synaxion B.V.",               project:"Uitfaseren Servers",         wie:"Bas",              type:"klant", start:6, eind:7 },
+  { klant:"Econox B.V.",                 project:"Migratie Productieomgeving", wie:"Jan-Jaap, Bas",    type:"klant", start:6, eind:9 },
+  { klant:"Econox B.V.",                 project:"Vervanging Netwerk",         wie:"Bas, Jan-Jaap",    type:"sales", start:6, eind:8 },
+  { klant:"Geevers Auto Parts",          project:"Verhuizing Westfield 1010",  wie:"Bas, Mitchell",    type:"sales", start:6, eind:11 },
+  { klant:"Geevers Auto Parts",          project:"RBAC Implementatie",         wie:"Mitchell",         type:"klant", start:6, eind:7 },
+  { klant:"Geevers Auto Parts",          project:"Tooling telefonie rapportage",         wie:"Mitchell",         type:"klant", start:6, eind:6 },
+  { klant:"Bazelmans AV",                project:"Netwerk vervanging",         wie:"Luke, Dennis",     type:"sales", start:7, eind:7 },
+  { klant:"Diego",                       project:"TWC 365Beheer",              wie:"Bart, Luke",             type:"klant", start:6, eind:6 },
+  { klant:"Metabletica",                 project:"TWC Workplace",              wie:"Tom",              type:"sales", start:7, eind:8 },
+  { klant:"TBRM Group B.V.",             project:"Blueprint startups",         wie:"Jelle B",          type:"klant", start:7, eind:9 },
+  { klant:"TBRM Group B.V.",             project:"Vervanging hardware",        wie:"Jelle B, Stef L",  type:"klant", start:6, eind:7 },
+  { klant:"Th. Van Kasteren",            project:"TWC Workplace + Server",     wie:"Bas",              type:"sales", start:7, eind:7 },
+  { klant:"Bouwbedrijf Th. Van Kasteren",project:"Naamswijziging naar Builders",wie:"Bas",             type:"klant", start:7, eind:8 },
+  { klant:"Bouwbedrijf Th. Van Kasteren",project:"TWC Workplace + Server",wie:"Bas",             type:"sales", start:0, eind:0 },
+  { klant:"Geeqs",                       project:"TWC Workplace",              wie:"Luke, Tom",        type:"sales", start:8, eind:9 },
+  { klant:"Adfive B.V.",                 project:"TWC 365Beheer",              wie:"Luke, Bart",       type:"klant", start:6, eind:6 },
+  { klant:"Smartclinicalproducts",       project:"TWC 365Beheer",              wie:"Luke, Bart",       type:"sales", start:7, eind:7 },
+  { klant:"Boss Machinery",       project:"Nieuwbouw Habraken",              wie:"Dennis, Ron",       type:"sales", start:6, eind:12 },
+
+  /* ── Nog niet ingepland (start:0, eind:0) ── */
+  { klant:"013 Poppodium",               project:"TWC Workplace",              wie:"",                 type:"sales", start:0, eind:0 },
+  { klant:"Bobo's Eyewear",                      project:"TWC Workplace",              wie:"",                 type:"sales", start:0, eind:0 },
+  { klant:"DPI",                         project:"Nieuwe infrastructuur",      wie:"",                 type:"sales", start:0, eind:0 },
+  { klant:"WTC/e",                       project:"TWC Workplace",              wie:"",                 type:"sales", start:0, eind:0 },
+  { klant:"De Beerze",                   project:"Infrastructuur",             wie:"",                 type:"sales", start:0, eind:0 },
+];
+
+/* ════════════ INSTELLINGEN ════════════ */
+const JAAR            = 2026;   // planningsjaar
+const SECONDEN_PER_SCHERM = 25; // rotatiesnelheid tussen de 2 schermen
+const ROTEREN         = true;   // false = alleen scherm 1 (engineers) tonen
+/* ═══════════════════════════════════════ */
+</script>
+<style>
+  :root{
+    --oranje:#C45B0E;  --oranje-licht:#FAE8D9; --oranje-zacht:#D4956A;
+    --blauw:#1764A8;   --blauw-licht:#DDE9F5;  --blauw-zacht:#6A9BC8;
+    --bg:#E4E4E4;      --donker:#2E2E2E;       --inkt:#1A1A1A;
+    --wit:#FFFFFF;     --lijn:#ECECEC;         --dim:#9A9A9A;
+  }
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{ width:1920px; height:1080px; overflow:hidden; }
+  body{
+    font-family:'Segoe UI',Calibri,Arial,sans-serif;
+    background:var(--bg); color:var(--inkt);
+    position:relative;
+  }
+
+  /* ══ HEADER (altijd zichtbaar) ══ */
+  .header{
+    position:absolute; top:0; left:0; right:0; height:96px;
+    background:var(--donker); color:#fff;
+    display:flex; align-items:center; gap:28px;
+    padding:0 44px;
+  }
+  .logoblok{
+    background:var(--oranje); color:#fff; font-weight:800;
+    font-size:30px; letter-spacing:1px;
+    padding:10px 22px; border-radius:6px;
+  }
+  .header h1{ font-size:30px; font-weight:700; letter-spacing:.3px; }
+  .header .sub{ font-size:17px; color:#B9B9B9; margin-top:2px; }
+  .hdr-right{ margin-left:auto; text-align:right; }
+  .hdr-right .maand{ font-size:28px; font-weight:800; color:#F0A468; }
+  .hdr-right .datum{ font-size:16px; color:#B9B9B9; margin-top:2px; }
+
+  /* ══ VIEWS ══ */
+  .view{
+    position:absolute; top:96px; left:0; right:0; bottom:58px;
+    padding:26px 44px 14px;
+    opacity:0; transition:opacity .8s ease; pointer-events:none;
+  }
+  .view.actief{ opacity:1; pointer-events:auto; }
+  @media (prefers-reduced-motion: reduce){
+    .view{ transition:none; }
+  }
+  .view-titel{
+    display:flex; align-items:baseline; gap:18px; margin-bottom:18px;
+  }
+  .view-titel h2{
+    font-size:26px; font-weight:800; color:var(--inkt);
+    text-transform:uppercase; letter-spacing:1.5px;
+  }
+  .view-titel h2::before{
+    content:""; display:inline-block; width:12px; height:26px;
+    background:var(--oranje); margin-right:14px; vertical-align:-3px;
+    border-radius:2px;
+  }
+  .legenda{ margin-left:auto; display:flex; gap:26px; font-size:16px; font-weight:600; color:#555; }
+  .legenda span{ display:inline-flex; align-items:center; gap:9px; }
+  .lb{ width:18px; height:18px; border-radius:4px; }
+  .lb-k{ background:var(--oranje); } .lb-s{ background:var(--blauw); }
+
+  /* ══ SCHERM 1 · ENGINEER-KAARTEN ══ */
+  #engGrid{
+    display:grid; grid-template-columns:repeat(5,1fr);
+    gap:18px; align-content:start;
+  }
+  .kaart{
+    background:var(--wit); border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.10);
+    padding:18px 20px 16px; overflow:hidden;
+    border-top:5px solid var(--donker);
+  }
+  .kaart-kop{ display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+  .avatar{
+    width:52px; height:52px; border-radius:50%; flex-shrink:0;
+    background:var(--oranje); color:#fff;
+    font-size:22px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .kaart-kop .naam{ font-size:25px; font-weight:800; line-height:1.05; }
+  .kaart-kop .telling{ font-size:14px; color:var(--dim); font-weight:600; margin-top:3px; }
+
+  .proj{
+    border-left:6px solid var(--oranje);
+    background:var(--oranje-licht);
+    border-radius:0 7px 7px 0;
+    padding:9px 12px; margin-bottom:9px;
+  }
+  .proj.sales{ border-left-color:var(--blauw); background:var(--blauw-licht); }
+  .proj .pk{ font-size:18px; font-weight:800; line-height:1.15;
+             white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .proj .pp{ font-size:15px; color:#4A4A4A; margin-top:2px; line-height:1.2;
+             white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .proj .pm{ font-size:13px; font-weight:700; margin-top:4px; color:var(--oranje);
+             text-transform:uppercase; letter-spacing:.6px; }
+  .proj.sales .pm{ color:var(--blauw); }
+
+  .straks{ margin-top:4px; }
+  .straks .label{
+    font-size:12px; font-weight:800; color:var(--dim);
+    text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;
+  }
+  .straks .item{
+    font-size:14.5px; color:#6E6E6E; line-height:1.45;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .straks .item b{ color:#4A4A4A; }
+  .vrij{ font-size:16px; color:#B5B5B5; font-style:italic; padding:6px 2px; }
+
+  /* ══ SCHERM 2 · TIJDLIJN ══ */
+  .tl-wrap{
+    background:var(--wit); border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.10); overflow:hidden;
+  }
+  table{ width:100%; border-collapse:collapse; table-layout:fixed; }
+  th,td{ border-right:1px solid var(--lijn); }
+  .c-klant{ width:300px; } .c-proj{ width:330px; }
+  thead th{
+    background:var(--donker); color:#C9C9C9;
+    font-size:16px; font-weight:700; text-transform:uppercase;
+    letter-spacing:1px; padding:13px 8px; text-align:center;
+    border-right:1px solid #3C3C3C;
+  }
+  thead th.c-klant, thead th.c-proj{ text-align:left; padding-left:18px; color:#EFEFEF; }
+  thead th.nu{ background:var(--oranje); color:#fff; }
+  tbody tr{ border-bottom:1px solid var(--lijn); }
+  td{ height:52px; vertical-align:middle; }
+  td.c-klant{
+    padding-left:18px; font-size:19px; font-weight:800;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  td.c-proj{
+    padding-left:14px; font-size:17px; color:#444;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  td.mcel{ padding:8px 0; }
+  td.mcel.nu{ background:#FFF4EA; }
+  .balk{
+    height:36px; line-height:36px; width:100%;
+    font-size:15px; font-weight:700; color:#fff;
+    padding:0 12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .balk.k{ background:var(--oranje); } .balk.s{ background:var(--blauw); }
+  .balk.begin{ border-radius:8px 0 0 8px; } .balk.eind{ border-radius:0 8px 8px 0; }
+  .balk.solo{ border-radius:8px; } .balk.midden{ border-radius:0; }
+
+  tr.totaal td{
+    background:#F4F4F4; text-align:center; height:46px;
+    font-size:17px; font-weight:800; color:var(--oranje);
+    border-top:2px solid var(--bg);
+  }
+  tr.totaal td.c-klant{ text-align:left; font-size:15px; color:#8A8A8A;
+    text-transform:uppercase; letter-spacing:1px; }
+  tr.totaal td .leeg{ color:#CFCFCF; }
+
+  /* ══ FOOTER ══ */
+  .footer{
+    position:absolute; left:0; right:0; bottom:0; height:58px;
+    background:var(--donker); color:#9A9A9A;
+    display:flex; align-items:center; gap:30px;
+    padding:0 44px; font-size:15px;
+  }
+  .dots{ display:flex; gap:10px; align-items:center; }
+  .dot{ width:12px; height:12px; border-radius:50%; background:#555;
+        transition:background .4s; }
+  .dot.aan{ background:var(--oranje); }
+  .voortgang{
+    flex:0 0 180px; height:5px; background:#4A4A4A; border-radius:3px; overflow:hidden;
+  }
+  .voortgang i{ display:block; height:100%; width:0%; background:var(--oranje); }
+  .footer .klok{ margin-left:auto; font-size:20px; font-weight:700; color:#E8E8E8;
+                 font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logoblok">TWC</div>
+  <div>
+    <h1>Projectplanning <span id="hJaar"></span></h1>
+    <div class="sub">Wie werkt waaraan</div>
+  </div>
+  <div class="hdr-right">
+    <div class="maand" id="hMaand">–</div>
+    <div class="datum" id="hDatum"></div>
+  </div>
+</div>
+
+<!-- SCHERM 1 · ENGINEERS -->
+<div class="view actief" id="view1">
+  <div class="view-titel">
+    <h2 id="t1">Deze maand · wie werkt waaraan</h2>
+    <div class="legenda">
+      <span><i class="lb lb-k"></i>Klantproject</span>
+      <span><i class="lb lb-s"></i>Salesproject</span>
+    </div>
+  </div>
+  <div id="engGrid"></div>
+</div>
+
+<!-- SCHERM 2 · TIJDLIJN -->
+<div class="view" id="view2">
+  <div class="view-titel">
+    <h2>Planning komende maanden</h2>
+    <div class="legenda">
+      <span><i class="lb lb-k"></i>Klantproject</span>
+      <span><i class="lb lb-s"></i>Salesproject</span>
+    </div>
+  </div>
+  <div class="tl-wrap">
+    <table>
+      <thead><tr id="tlHdr">
+        <th class="c-klant">Klant</th>
+        <th class="c-proj">Project · Engineer(s)</th>
+      </tr></thead>
+      <tbody id="tlBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="dots" id="dots"></div>
+  <div class="voortgang"><i id="vbar"></i></div>
+  <div id="ftTekst"></div>
+  <div class="klok" id="klok"></div>
+</div>
+
+<script>
+/* ───────── basis ───────── */
+const MFUL=["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"];
+const MKORT=["Jan","Feb","Mrt","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"];
+const nu=new Date(), CM=nu.getMonth()+1;
+
+document.getElementById("hJaar").textContent=JAAR;
+document.getElementById("hMaand").textContent=MFUL[CM-1]+" "+JAAR;
+document.getElementById("hDatum").textContent=nu.toLocaleDateString("nl-NL",{weekday:"long",day:"numeric",month:"long"});
+document.getElementById("t1").textContent="Wie werkt waaraan · "+MFUL[CM-1];
+
+const gepland = PROJECTEN.filter(p=>p.start>0 && p.eind>=CM);   // lopend of toekomstig
+
+/* ───────── SCHERM 1 · engineerkaarten ───────── */
+const eng={};
+gepland.forEach(p=>{
+  (p.wie||"").split(",").map(s=>s.trim()).filter(Boolean).forEach(naam=>{
+    (eng[naam]=eng[naam]||{nu:[],straks:[]});
+    if(p.start<=CM) eng[naam].nu.push(p); else eng[naam].straks.push(p);
+  });
+});
+
+const grid=document.getElementById("engGrid");
+const namen=Object.keys(eng).sort((a,b)=>a.localeCompare(b,"nl"));
+/* gridkolommen meebewegen met aantal engineers */
+grid.style.gridTemplateColumns="repeat("+(namen.length>8?5:namen.length>6?4:3)+",1fr)";
+
+function periode(p){
+  if(p.start===p.eind) return MKORT[p.eind-1];
+  return (p.start<CM?"t/m ":MKORT[p.start-1]+" – ")+MKORT[p.eind-1];
+}
+namen.forEach(naam=>{
+  const e=eng[naam];
+  const k=document.createElement("div"); k.className="kaart";
+  const init=naam.split(/\s+/).map(w=>w[0]).join("").toUpperCase().slice(0,2);
+  let html=`<div class="kaart-kop"><div class="avatar">${init}</div>
+    <div><div class="naam">${naam}</div>
+    <div class="telling">${e.nu.length} project${e.nu.length===1?"":"en"} deze maand</div></div></div>`;
+
+  if(e.nu.length){
+    e.nu.sort((a,b)=>a.eind-b.eind).forEach(p=>{
+      html+=`<div class="proj ${p.type==="sales"?"sales":""}">
+        <div class="pk">${p.klant}</div>
+        <div class="pp">${p.project}</div>
+        <div class="pm">${periode(p)}</div></div>`;
+    });
+  } else {
+    html+=`<div class="vrij">Geen lopend project deze maand</div>`;
+  }
+  const later=e.straks.sort((a,b)=>a.start-b.start);
+  if(later.length){
+    html+=`<div class="straks"><div class="label">Daarna</div>`;
+    later.slice(0,3).forEach(p=>{
+      html+=`<div class="item"><b>${p.klant}</b> · ${p.project} <span style="color:#A0A0A0">(vanaf ${MKORT[p.start-1]})</span></div>`;
+    });
+    if(later.length>3){
+      html+=`<div class="item" style="color:#A0A0A0">+ nog ${later.length-3} project${later.length-3===1?"":"en"}</div>`;
+    }
+    html+=`</div>`;
+  }
+  k.innerHTML=html; grid.appendChild(k);
+});
+
+/* kaarten passend schalen als het er ooit te veel worden */
+(function fit(){
+  const v=document.getElementById("view1");
+  const ruimte=v.clientHeight-document.querySelector("#view1 .view-titel").offsetHeight-62;
+  if(grid.scrollHeight>ruimte){
+    const s=ruimte/grid.scrollHeight;
+    grid.style.transformOrigin="top left";
+    grid.style.transform=`scale(${s})`;
+    grid.style.width=(100/s)+"%";
+  }
+})();
+
+/* ───────── SCHERM 2 · tijdlijn ───────── */
+const startM=Math.min(CM,9);             // toon vanaf huidige maand (min. 4 kolommen)
+const hdr=document.getElementById("tlHdr");
+for(let m=startM;m<=12;m++){
+  const th=document.createElement("th");
+  th.textContent=MKORT[m-1]; if(m===CM){th.classList.add("nu");th.textContent=MKORT[m-1]+" · NU";}
+  hdr.appendChild(th);
+}
+const nKol=12-startM+1;
+const body=document.getElementById("tlBody");
+const telling=Array(13).fill(0);
+
+gepland.slice().sort((a,b)=>a.start!==b.start?a.start-b.start:a.klant.localeCompare(b.klant,"nl"))
+.forEach(p=>{
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td class="c-klant" title="${p.klant}">${p.klant}</td>
+    <td class="c-proj" title="${p.project}">${p.project}${p.wie?` · <b>${p.wie}</b>`:""}</td>`;
+  const effStart=Math.max(p.start,startM);
+  for(let m=startM;m<=12;m++){
+    const td=document.createElement("td"); td.className="mcel"+(m===CM?" nu":"");
+    if(m>=p.start&&m<=p.eind){
+      telling[m]++;
+      const pos=effStart===p.eind?"solo":m===effStart?"begin":m===p.eind?"eind":"midden";
+      const b=document.createElement("div");
+      b.className=`balk ${p.type==="sales"?"s":"k"} ${pos}`;
+      if(m===effStart) b.textContent=p.wie||"";
+      td.appendChild(b);
+    }
+    tr.appendChild(td);
+  }
+  body.appendChild(tr);
+});
+
+const tot=document.createElement("tr"); tot.className="totaal";
+tot.innerHTML=`<td class="c-klant">Projecten per maand</td><td class="c-proj"></td>`;
+for(let m=startM;m<=12;m++){
+  const td=document.createElement("td");
+  td.innerHTML=telling[m]?telling[m]:`<span class="leeg">–</span>`;
+  tot.appendChild(td);
+}
+body.appendChild(tot);
+
+/* tijdlijn passend schalen indien nodig */
+(function fit2(){
+  const v=document.getElementById("view2");
+  const inhoud=v.scrollHeight, ruimte=v.clientHeight;
+  if(inhoud>ruimte){
+    const s=ruimte/inhoud;
+    v.style.transformOrigin="top left";
+    v.style.transform=`scale(${s})`;
+    v.style.width=(100/s)+"%";
+  }
+})();
+
+/* ───────── footer · rotatie · klok ───────── */
+document.getElementById("ftTekst").textContent=
+  `TWC IT Solutions · ${gepland.length} ingeplande projecten · bijgewerkt ${nu.toLocaleDateString("nl-NL")}`;
+
+function tikKlok(){
+  document.getElementById("klok").textContent=
+    new Date().toLocaleTimeString("nl-NL",{hour:"2-digit",minute:"2-digit"});
+}
+tikKlok(); setInterval(tikKlok,15000);
+
+const views=[document.getElementById("view1"),document.getElementById("view2")];
+const dots=document.getElementById("dots");
+views.forEach((_,i)=>{const d=document.createElement("i");d.className="dot"+(i===0?" aan":"");dots.appendChild(d);});
+
+if(ROTEREN && views.length>1){
+  let idx=0, t0=Date.now();
+  const vbar=document.getElementById("vbar");
+  setInterval(()=>{
+    const p=Math.min(100,(Date.now()-t0)/(SECONDEN_PER_SCHERM*1000)*100);
+    vbar.style.width=p+"%";
+    if(p>=100){
+      idx=(idx+1)%views.length; t0=Date.now();
+      views.forEach((v,i)=>v.classList.toggle("actief",i===idx));
+      [...dots.children].forEach((d,i)=>d.classList.toggle("aan",i===idx));
+    }
+  },200);
+}else{
+  document.querySelector(".voortgang").style.display="none";
+}
+</script>
+</body>
+</html>
