@@ -33,43 +33,42 @@
 <script>
 /* ════════════ PROJECTEN — wekelijks bijwerken ════════════ */
 const PROJECTEN = [
-    { klant:"ASV Automobielbedrijven",     project:"Vervanging Infrastructuur",  wie:"Mitchell, Dennis", type:"klant", start:6, eind:6 },
-  { klant:"ASV Automobielbedrijven",     project:"Update Esx + Vcenter naar build 8",  wie:"Mitchell", type:"klant", start:6, eind:8 },
+
+  { klant:"ASV Automobielbedrijven",     project:"Update Esx + Vcenter naar build 8",  wie:"Mitchell", type:"klant", start:7, eind:8 },
   { klant:"Kloosterhotel ZIN",           project:"Vervanging Netwerk",         wie:"Ron, Dennis",      type:"klant", start:6, eind:8 },
-  { klant:"Leermakers Accountants",      project:"FDS migratie",               wie:"Dennis",           type:"klant", start:6, eind:7 },
+  { klant:"Econox B.V.",           project:"R&D Azure Files",         wie:"Joeï",      type:"klant", start:7, eind:8 },
   { klant:"Synaxion B.V.",               project:"Uitfaseren Servers",         wie:"Bas",              type:"klant", start:7, eind:9 },
-  { klant:"Econox B.V.",                 project:"EHV Vervanging netwerk",         wie:"",    type:"sales", start:8, eind:9 },
+  { klant:"The Forward Co",           project:"Wijzigen tenantnaam",         wie:"Tom",      type:"klant", start:7, eind:9 },
   { klant:"Geevers Auto Parts",          project:"Verhuizing Westfield 1010",  wie:"Bas, Mitchell",    type:"sales", start:6, eind:11 },
   { klant:"Geevers Auto Parts",          project:"RBAC Implementatie",         wie:"Mitchell",         type:"klant", start:6, eind:7 },
-  { klant:"Geevers Auto Parts",          project:"Tooling telefonie rapportage",         wie:"Mitchell",         type:"klant", start:6, eind:6 },
+  { klant:"ASV Automobielbedrijven B.V.",     project:"Infrastructuur Heuvelplein 4",  wie:"Mitchell", type:"klant", start:6, eind:9 },
   { klant:"Bazelmans AV",                project:"Netwerk vervanging",         wie:"Luke, Dennis",     type:"klant", start:7, eind:8 },
-  { klant:"Diego",                       project:"TWC 365Beheer",              wie:"Bart, Luke",             type:"klant", start:7, eind:7 },
-  { klant:"Metabletica",                 project:"TWC Workplace",              wie:"",              type:"sales", start:7, eind:8 },
+  { klant:"Diego",                       project:"TWC 365Beheer",              wie:"Bart, Luke",             type:"klant", start:7, eind:8 },
+  { klant:"Connection-SGGZ",                         project:"Vervanging netwerk locatie Kortenbos",      wie:"Mitchell",                 type:"sales", start:8, eind:9 },
   { klant:"TBRM Group B.V.",             project:"Blueprint startups",         wie:"Jelle B",          type:"sales", start:6, eind:10 },
   { klant:"TBRM Group B.V.",             project:"Vervanging hardware",        wie:"Jelle B, Stef L",  type:"klant", start:6, eind:7 },
-  { klant:"Th. Van Kasteren",            project:"TWC Workplace + Server",     wie:"Bas",              type:"sales", start:7, eind:7 },
-  { klant:"Bouwbedrijf Th. Van Kasteren",project:"Naamswijziging naar Builders",wie:"Bas",             type:"klant", start:7, eind:8 },
-  { klant:"Bouwbedrijf Th. Van Kasteren",project:"TWC Workplace + Server",wie:"",             type:"sales", start:0, eind:0 },
-  { klant:"Geeqs",                       project:"TWC Workplace",              wie:"",        type:"sales", start:8, eind:9 },
-  { klant:"AdFive B.V.",                 project:"TWC 365Beheer",              wie:"Luke, Bart",       type:"klant", start:6, eind:7 },
+  { klant:"Bontrup",     project:"Overname IT Infrastructuur Struktura B.V.",  wie:"Levi", type:"klant", start:7, eind:8 },
+  { klant:"Bouwbedrijf Th. Van Kasteren",project:"Naamswijziging naar Builders",wie:"Bas",             type:"klant", start:7, eind:9 },
   { klant:"SMART Clinical Products B.V.",       project:"TWC 365Beheer",              wie:"Luke, Bart",       type:"klant", start:7, eind:8 },
-  { klant:"Boss Machinery",       project:"Nieuwbouw Habraken",              wie:"",       type:"sales", start:6, eind:12 },
+  { klant:"Geeqs",                       project:"TWC Workplace",              wie:"",        type:"sales", start:8, eind:10 },
+  { klant:"AdFive B.V.",                 project:"TWC 365Beheer",              wie:"Luke, Bart",       type:"klant", start:6, eind:8 },
+  { klant:"Vivens Management B.V.",       project:"TWC 365Beheer",              wie:"Luke, Bart",       type:"klant", start:7, eind:8 },
+  { klant:"Boss Machinery",       project:"Nieuwbouw Habraken",              wie:"",       type:"sales", start:8, eind:12 },
   { klant:"Boss Machinery",       project:"Verbetering Security",              wie:"Ron, Rick",       type:"Klant", start:6, eind:12 },
 
   /* ── Nog niet ingepland (start:0, eind:0) ── */
   { klant:"013 Poppodium",               project:"TWC Workplace",              wie:"",                 type:"sales", start:0, eind:0 },
   { klant:"013 Poppodium",               project:"RBAC Implementatie",              wie:"Levi",                 type:"klant", start:0, eind:0 },
   { klant:"ASV Automobielbedrijven",     project:"RBAC Implementatie",  wie:"Mitchell", type:"klant", start:0, eind:0 },
-  { klant:"ASV Automobielbedrijven",     project:"Infrastrcutuur Heuvelplein 4",  wie:"Mitchell", type:"klant", start:0, eind:0 },
-  { klant:"Bontrup",     project:"Overname IT Infrastructuur Struktura B.V.",  wie:"Levi", type:"klant", start:7, eind:8 },
   { klant:"Bobo's Eyewear",                      project:"TWC Workplace",              wie:"",                 type:"sales", start:0, eind:0 },
   { klant:"DPI",                         project:"Nieuwe infrastructuur",      wie:"",                 type:"sales", start:0, eind:0 },
-  { klant:"Connection-SGGZ",                         project:"Vervanging netwerk locatie Kortenbos",      wie:"",                 type:"sales", start:0, eind:0 },
   { klant:"WTC/e",                       project:"TWC Workplace",              wie:"",                 type:"sales", start:0, eind:0 },
   { klant:"Leermakers Accountants & belastingadviseurs",      project:"Scannen via Printix",               wie:"",           type:"klant", start:0, eind:0},
   { klant:"De Beerze",                   project:"Infrastructuur",             wie:"",                 type:"sales", start:0, eind:0 },
+  { klant:"Metabletica",                 project:"TWC Workplace",              wie:"",              type:"sales", start:0, eind:0 },
+  { klant:"Th. Van Kasteren",            project:"TWC Workplace + Server",     wie:"Bas",              type:"sales", start:0, eind:0 },
+  { klant:"Econox B.V.",           project:"Firewall vervanging Maxicool",         wie:"",      type:"klant", start:0, eind:0 },
 ];
-
 /* ════════════ INSTELLINGEN ════════════ */
 const JAAR            = 2026;   // planningsjaar
 const SECONDEN_PER_SCHERM = 25; // rotatiesnelheid tussen de 2 schermen
