@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TWC Planning · Beheer</title>
+<style>
+  :root{
+    --oranje:#C45B0E; --oranje-licht:#FAE8D9; --oranje-hover:#A94D0B;
+    --blauw:#1764A8;  --blauw-licht:#DDE9F5;
+    --bg:#EFEFEF; --donker:#2E2E2E; --inkt:#1A1A1A;
+    --wit:#FFFFFF; --lijn:#E2E2E2; --dim:#8A8A8A;
+    --rood:#B42318; --rood-licht:#FDECEA; --groen:#1E7B3A; --groen-licht:#E6F4EA;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  body{ margin:0; font-family:'Segoe UI',Calibri,Arial,sans-serif; background:var(--bg); color:var(--inkt); font-size:15px; }
+
+  header{ background:var(--donker); color:#fff; display:flex; align-items:center; gap:18px; padding:14px 28px; position:sticky; top:0; z-index:5; flex-wrap:wrap; }
+  .logoblok{ background:var(--oranje); font-weight:800; font-size:20px; letter-spacing:1px; padding:6px 14px; border-radius:5px; }
+  header h1{ font-size:20px; margin:0; font-weight:700; }
+  header .sub{ font-size:13px; color:#B9B9B9; }
+  .hdr-acties{ margin-left:auto; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  #status{ font-size:13px; color:#B9B9B9; margin-right:6px; }
+  #status.vuil{ color:#F0A468; font-weight:700; }
+
+  button,.knop{ white-space:nowrap; font:inherit; font-size:14px; font-weight:600; border:1px solid #C9C9C9; background:#fff; color:var(--inkt);
+    padding:8px 14px; border-radius:6px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+  button:hover,.knop:hover{ border-color:#999; }
+  button.primair{ background:var(--oranje); border-color:var(--oranje); color:#fff; }
+  button.primair:hover{ background:var(--oranje-hover); }
+  header button:not(.primair), header .knop{ background:#3E3E3E; border-color:#555; color:#eee; }
+  button:disabled{ opacity:.5; cursor:default; }
+  button.mini{ padding:5px 8px; font-size:13px; }
+  button.gevaar{ color:var(--rood); }
+
+  main{ padding:22px 28px 60px; max-width:1500px; margin:0 auto; }
+  .balkje{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+  .balkje input[type=search]{ font:inherit; padding:8px 12px; border:1px solid #C9C9C9; border-radius:6px; width:260px; }
+  .teller{ color:var(--dim); font-size:13px; margin-left:auto; }
+
+  .kaart{ background:#fff; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.08); overflow:auto; }
+  table{ width:100%; border-collapse:collapse; min-width:1050px; }
+  thead th{ background:var(--donker); color:#EFEFEF; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:1px; padding:11px 8px; position:sticky; top:0; }
+  td{ padding:6px 8px; border-bottom:1px solid var(--lijn); vertical-align:middle; }
+  tr.groep td{ background:#F6F6F6; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--dim); padding:10px 10px; }
+  td input,td select{ font:inherit; width:100%; padding:7px 9px; border:1px solid transparent; border-radius:5px; background:transparent; color:inherit; }
+  td input:hover,td select:hover{ border-color:#D5D5D5; }
+  td input:focus,td select:focus{ border-color:var(--oranje); outline:none; background:#fff; box-shadow:0 0 0 3px rgba(196,91,14,.15); }
+  td input.klant{ font-weight:700; }
+  td input[type=month]{ min-width:150px; }
+  td.type select{ font-weight:700; border-left:5px solid var(--oranje); border-radius:0 5px 5px 0; background:var(--oranje-licht); }
+  td.type select.sales{ border-left-color:var(--blauw); background:var(--blauw-licht); }
+  td.acties{ white-space:nowrap; text-align:right; width:1%; }
+  .badge{ display:inline-block; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; padding:3px 8px; border-radius:10px; white-space:nowrap; }
+  .b-loopt{ background:var(--groen-licht); color:var(--groen); }
+  .b-straks{ background:var(--blauw-licht); color:var(--blauw); }
+  .b-niet{ background:#EEE; color:#777; }
+  .b-klaar{ background:#EEE; color:#999; }
+  .b-fout{ background:var(--rood-licht); color:var(--rood); }
+  tr.klaar td{ opacity:.55; }
+  tr.fout input[type=month]{ border-color:var(--rood); }
+  tr.nieuw td{ animation:flits 1.6s ease; }
+  @keyframes flits{ from{ background:var(--oranje-licht); } to{ background:transparent; } }
+
+  details.instel{ background:#fff; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.08); margin-bottom:16px; }
+  details.instel summary{ cursor:pointer; padding:14px 18px; font-weight:700; }
+  .instel-inhoud{ padding:0 18px 18px; display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px; }
+  .instel-inhoud label{ font-size:12px; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:.6px; display:flex; flex-direction:column; gap:5px; }
+  .instel-inhoud input{ font:inherit; text-transform:none; letter-spacing:0; padding:8px 10px; border:1px solid #C9C9C9; border-radius:6px; font-weight:400; }
+  .instel-uitleg{ grid-column:1/-1; font-size:13.5px; color:#555; line-height:1.55; background:#F7F7F7; border-radius:8px; padding:12px 14px; }
+  .instel-uitleg ol{ margin:6px 0 0 18px; padding:0; }
+
+  dialog#plakDlg{ border:none; border-radius:12px; padding:22px 24px; width:min(820px,94vw); box-shadow:0 10px 40px rgba(0,0,0,.3); }
+  dialog#plakDlg::backdrop{ background:rgba(0,0,0,.45); }
+  dialog#plakDlg h2{ margin:0 0 8px; font-size:20px; }
+  dialog#plakDlg p{ margin:0 0 12px; line-height:1.5; }
+  #plakTekst{ width:100%; height:200px; font:13px Consolas,monospace; padding:10px; border:1px solid #C9C9C9; border-radius:6px; margin-bottom:10px; }
+  .klein{ font-size:13px; color:#666; }
+  #plakVoorbeeld{ margin-top:8px; }
+  #toast{ position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(120px); background:var(--donker); color:#fff;
+    padding:12px 20px; border-radius:8px; font-weight:600; transition:transform .3s; z-index:20; max-width:90vw; }
+  #toast.aan{ transform:translateX(-50%) translateY(0); }
+  #toast.fout{ background:var(--rood); }
+  #toast.ok{ background:var(--groen); }
+  .hint{ font-size:13px; color:var(--dim); margin-top:10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logoblok">TWC</div>
+  <div>
+    <h1>Projectplanning · beheer</h1>
+    <div class="sub" id="bijgewerkt">–</div>
+  </div>
+  <div class="hdr-acties">
+    <span id="status">Geen wijzigingen</span>
+    <a class="knop" href="index.html" target="_blank" rel="noopener">Bekijk bord ↗</a>
+    <button id="btnDownload" title="Download projecten.json (handmatig uploaden)">Download</button>
+    <button id="btnOpslaan" class="primair">Opslaan naar GitHub</button>
+  </div>
+</header>
+
+<main>
+  <dialog id="plakDlg">
+    <h2>Plakken uit Excel / Autotask</h2>
+    <p>Kopieer de regels (zonder kopregel) en plak ze hieronder. Kolommen in deze volgorde:<br>
+      <b>Klant · Project · Engineer(s) · Type · Startmaand · Eindmaand</b><br>
+      <span class="klein">Type: alles met "sales" wordt Sales, de rest Klant. Maand: een nummer (10), een naam (okt) of 2026-10.
+      Bestaat de combinatie klant + project al, dan wordt die bijgewerkt; anders toegevoegd.</span></p>
+    <textarea id="plakTekst" placeholder="Connection-SGGZ&#9;Nieuw pand Utrecht&#9;Mitchell, Dennis&#9;Customer project&#9;10&#9;11"></textarea>
+    <label class="klein"><input type="checkbox" id="plakVervang"> Alle bestaande <i>ingeplande</i> projecten vervangen door deze lijst (niet-ingeplande blijven staan)</label>
+    <div id="plakVoorbeeld" class="klein"></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px">
+      <button id="plakAnnuleer">Annuleren</button>
+      <button id="plakOk" class="primair">Verwerken</button>
+    </div>
+  </dialog>
+
+  <details class="instel" id="instel">
+    <summary>⚙ GitHub-koppeling <span id="koppelStatus" style="font-weight:400;color:var(--dim);margin-left:8px"></span></summary>
+    <div class="instel-inhoud">
+      <label>Eigenaar (gebruiker/organisatie)<input id="gOwner" placeholder="bijv. twc-it"></label>
+      <label>Repository<input id="gRepo" placeholder="bijv. planning"></label>
+      <label>Branch<input id="gBranch" placeholder="main"></label>
+      <label>Bestand<input id="gPad" placeholder="projecten.json"></label>
+      <label style="grid-column:span 2">Token<input id="gToken" type="password" placeholder="github_pat_…" autocomplete="off"></label>
+      <div class="instel-uitleg">
+        Eenmalig instellen. Alles wordt alleen in déze browser bewaard.
+        <ol>
+          <li>Ga op GitHub naar <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens</b> → <b>Generate new token</b>.</li>
+          <li>Kies bij <i>Repository access</i> alleen de planning-repo, en zet bij <i>Permissions → Contents</i> op <b>Read and write</b>.</li>
+          <li>Plak het token hierboven. Klaar — <b>Opslaan naar GitHub</b> zet de planning direct live (GitHub Pages heeft ±1 minuut nodig, het bord ververst zichzelf).</li>
+        </ol>
+      </div>
+      <div style="display:flex;gap:10px;align-items:end">
+        <button id="btnKoppel">Opslaan &amp; test</button>
+        <button id="btnHerlaad">Opnieuw ophalen</button>
+      </div>
+    </div>
+  </details>
+
+  <div class="balkje">
+    <button id="btnNieuw" class="primair">+ Nieuw project</button>
+    <input type="search" id="zoek" placeholder="Zoek op klant, project of engineer…">
+    <button id="btnPlak">Plakken uit Excel</button>
+    <button id="btnOpruimen" title="Verwijder projecten waarvan de eindmaand voorbij is">Afgeronde verwijderen</button>
+    <span class="teller" id="teller"></span>
+  </div>
+
+  <div class="kaart">
+    <table>
+      <thead><tr>
+        <th style="width:22%">Klant</th>
+        <th style="width:24%">Project</th>
+        <th style="width:15%">Engineer(s)</th>
+        <th style="width:9%">Type</th>
+        <th>Start</th>
+        <th>Eind</th>
+        <th>Status</th>
+        <th></th>
+      </tr></thead>
+      <tbody id="lijst"></tbody>
+    </table>
+  </div>
+  <p class="hint">
+    Engineers scheiden met een komma (bijv. <i>Bas, Mitchell</i>). Geen startmaand = <b>nog niet ingepland</b>: staat dan niet op het bord.
+    Eind leeg = één maand. <span id="bekend"></span>
+  </p>
+</main>
+
+<div id="toast"></div>
+
+<script>
+/* ───────── state ───────── */
+let projecten=[], bijgewerkt=null, sha=null, vuil=false;
+const LS="twcPlanningGH";
+const MKORT=["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"];
+const nu=new Date(), CM=nu.getFullYear()*12+nu.getMonth();
+const mIdx=s=>{ const m=/^(\d{4})-(\d{1,2})$/.exec(String(s||"")); return m?(+m[1])*12+(+m[2]-1):0; };
+const $=id=>document.getElementById(id);
+
+/* ───────── GitHub-instellingen ───────── */
+function leesCfg(){
+  let c={}; try{ c=JSON.parse(localStorage.getItem(LS)||"{}"); }catch(e){}
+  // slim raden op GitHub Pages: <owner>.github.io/<repo>/
+  if(!c.owner && location.hostname.endsWith(".github.io")){
+    c.owner=location.hostname.split(".")[0];
+    const seg=location.pathname.split("/").filter(Boolean);
+    c.repo = seg.length && !seg[0].includes(".") ? seg[0] : location.hostname;
+  }
+  return {owner:c.owner||"",repo:c.repo||"",branch:c.branch||"main",pad:c.pad||"projecten.json",token:c.token||""};
+}
+function schrijfCfg(c){ try{ localStorage.setItem(LS,JSON.stringify(c)); }catch(e){} }
+function vulCfg(){ const c=leesCfg(); $("gOwner").value=c.owner; $("gRepo").value=c.repo; $("gBranch").value=c.branch; $("gPad").value=c.pad; $("gToken").value=c.token; return c; }
+function cfgUitForm(){ return {owner:$("gOwner").value.trim(),repo:$("gRepo").value.trim(),branch:$("gBranch").value.trim()||"main",pad:$("gPad").value.trim()||"projecten.json",token:$("gToken").value.trim()}; }
+const apiUrl=c=>`https://api.github.com/repos/${encodeURIComponent(c.owner)}/${encodeURIComponent(c.repo)}/contents/${c.pad.split("/").map(encodeURIComponent).join("/")}`;
+const hdrs=c=>Object.assign({"Accept":"application/vnd.github+json"}, c.token?{"Authorization":"Bearer "+c.token}:{});
+const b64naarTekst=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g,"")),ch=>ch.charCodeAt(0)));
+const tekstNaarB64=t=>{ const by=new TextEncoder().encode(t); let s=""; by.forEach(x=>s+=String.fromCharCode(x)); return btoa(s); };
+
+/* ───────── laden ───────── */
+async function laden(){
+  const c=leesCfg();
+  try{
+    if(c.owner&&c.repo&&c.token){
+      const r=await fetch(apiUrl(c)+"?ref="+encodeURIComponent(c.branch)+"&t="+Date.now(),{headers:hdrs(c),cache:"no-store"});
+      if(!r.ok) throw new Error("GitHub gaf "+r.status+(r.status===401?" (token ongeldig)":r.status===404?" (repo/bestand niet gevonden)":""));
+      const j=await r.json(); sha=j.sha;
+      zetData(JSON.parse(b64naarTekst(j.content)));
+      $("koppelStatus").textContent="✓ gekoppeld met "+c.owner+"/"+c.repo;
+    }else{
+      const r=await fetch("projecten.json?t="+Date.now(),{cache:"no-store"});
+      if(!r.ok) throw new Error("projecten.json niet gevonden");
+      zetData(await r.json());
+      $("koppelStatus").textContent="nog niet ingesteld — klik om te koppelen";
+      $("instel").open=true;
+    }
+  }catch(e){
+    toast("Laden mislukt: "+e.message,"fout");
+    $("koppelStatus").textContent="✗ "+e.message;
+    $("instel").open=true;
+    if(!projecten.length) teken();
+  }
+}
+function zetData(d){
+  projecten=(Array.isArray(d)?d:d.projecten||[]).map(p=>({klant:p.klant||"",project:p.project||"",wie:p.wie||"",
+    type:String(p.type||"klant").toLowerCase()==="sales"?"sales":"klant",start:p.start||"",eind:p.eind||""}));
+  bijgewerkt=d.bijgewerkt||null;
+  sorteer(); markeer(false); teken();
+}
+
+/* ───────── status per project ───────── */
+function status(p){
+  const s=mIdx(p.start), e=mIdx(p.eind)||s;
+  if(p.start&&p.eind&&e<s) return ["fout","Eind vóór start"];
+  if(!s) return ["niet","Niet ingepland"];
+  if(e<CM) return ["klaar","Afgerond"];
+  if(s>CM) return ["straks","Vanaf "+MKORT[s%12]];
+  return ["loopt","Loopt nu"];
+}
+const VOLGORDE={fout:0,loopt:1,straks:2,niet:3,klaar:4};
+const GROEP={fout:"Controleren",loopt:"Lopend",straks:"Gepland",niet:"Nog niet ingepland",klaar:"Afgerond — mag weg"};
+function sorteer(){
+  projecten.sort((a,b)=>{
+    const sa=status(a)[0], sb=status(b)[0];
+    if(sa!==sb) return VOLGORDE[sa]-VOLGORDE[sb];
+    return (mIdx(a.start)-mIdx(b.start)) || a.klant.localeCompare(b.klant,"nl");
+  });
+}
+
+/* ───────── tekenen ───────── */
+function teken(nieuweIndex){
+  const tb=$("lijst"); tb.innerHTML="";
+  const q=$("zoek").value.trim().toLowerCase();
+  let groep=null, zichtbaar=0;
+  projecten.forEach((p,i)=>{
+    if(q && !(p.klant+" "+p.project+" "+p.wie).toLowerCase().includes(q)) return;
+    const [st,label]=status(p);
+    if(st!==groep && i!==nieuweIndex){ groep=st; const g=document.createElement("tr"); g.className="groep"; g.innerHTML=`<td colspan="8">${GROEP[st]}</td>`; tb.appendChild(g); }
+    zichtbaar++;
+    const tr=document.createElement("tr"); tr.className=st+(i===nieuweIndex?" nieuw":""); tr.dataset.i=i;
+    tr.innerHTML=`
+      <td><input class="klant" data-v="klant" placeholder="Klantnaam"></td>
+      <td><input data-v="project" placeholder="Projectnaam"></td>
+      <td><input data-v="wie" placeholder="Nog niemand" list="engLijst"></td>
+      <td class="type"><select data-v="type"><option value="klant">Klant</option><option value="sales">Sales</option></select></td>
+      <td><input type="month" data-v="start"></td>
+      <td><input type="month" data-v="eind"></td>
+      <td><span class="badge b-${st}">${label}</span></td>
+      <td class="acties">
+        <button class="mini" data-a="kopie" title="Dupliceren">⧉</button>
+        <button class="mini gevaar" data-a="weg" title="Verwijderen">✕</button>
+      </td>`;
+    tr.querySelectorAll("[data-v]").forEach(el=>{ el.value=p[el.dataset.v]; });
+    tr.querySelector("select").classList.toggle("sales",p.type==="sales");
+    tb.appendChild(tr);
+  });
+  if(!zichtbaar){ tb.innerHTML=`<tr><td colspan="8" style="padding:30px;text-align:center;color:#999">${projecten.length?"Geen projecten gevonden":"Nog geen projecten — klik op ‘+ Nieuw project’"}</td></tr>`; }
+
+  const tel={}; projecten.forEach(p=>{ const s=status(p)[0]; tel[s]=(tel[s]||0)+1; });
+  $("teller").textContent=`${projecten.length} projecten · ${tel.loopt||0} lopend · ${tel.straks||0} gepland · ${tel.niet||0} niet ingepland`+(tel.klaar?` · ${tel.klaar} afgerond`:"");
+  $("btnOpruimen").disabled=!tel.klaar;
+
+  const namen=[...new Set(projecten.flatMap(p=>p.wie.split(",").map(s=>s.trim()).filter(Boolean)))].sort((a,b)=>a.localeCompare(b,"nl"));
+  $("bekend").textContent=namen.length?"Bekende engineers: "+namen.join(", ")+".":"";
+  let dl=$("engLijst"); if(!dl){ dl=document.createElement("datalist"); dl.id="engLijst"; document.body.appendChild(dl); }
+  dl.innerHTML=namen.map(n=>`<option value="${n.replace(/"/g,"&quot;")}">`).join("");
+
+  const d=bijgewerkt?new Date(bijgewerkt):null;
+  $("bijgewerkt").textContent=d&&!isNaN(d)?"Laatst opgeslagen: "+d.toLocaleString("nl-NL",{weekday:"long",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"}):"Nog niet opgeslagen";
+}
+
+/* ───────── bewerken ───────── */
+$("lijst").addEventListener("input",e=>{
+  const el=e.target, tr=el.closest("tr"); if(!el.dataset.v||!tr) return;
+  const p=projecten[+tr.dataset.i]; p[el.dataset.v]=el.value;
+  if(el.dataset.v==="type") el.classList.toggle("sales",el.value==="sales");
+  if(el.dataset.v==="start" && p.start && (!p.eind || mIdx(p.eind)<mIdx(p.start))){ p.eind=p.start; tr.querySelector('[data-v="eind"]').value=p.start; }
+  if(["start","eind"].includes(el.dataset.v)){
+    const [st,label]=status(p); tr.className=st;
+    const b=tr.querySelector(".badge"); b.className="badge b-"+st; b.textContent=label;
+  }
+  markeer(true);
+});
+$("lijst").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-a]"); if(!b) return;
+  const i=+b.closest("tr").dataset.i;
+  if(b.dataset.a==="weg"){
+    const p=projecten[i];
+    if(!confirm(`"${p.klant||"(leeg)"} – ${p.project||"(leeg)"}" verwijderen?`)) return;
+    projecten.splice(i,1); markeer(true); teken();
+  }else{
+    projecten.splice(i+1,0,{...projecten[i],project:projecten[i].project+" (kopie)"});
+    markeer(true); teken(i+1); focusRij(i+1,"project");
+  }
+});
+$("btnNieuw").onclick=()=>{
+  $("zoek").value="";
+  projecten.unshift({klant:"",project:"",wie:"",type:"klant",start:"",eind:""});
+  markeer(true); teken(0); focusRij(0,"klant");
+};
+function focusRij(i,veld){ const el=document.querySelector(`tr[data-i="${i}"] [data-v="${veld}"]`); if(el){ el.focus(); el.select&&el.select(); el.scrollIntoView({block:"center"}); } }
+$("zoek").oninput=()=>teken();
+$("btnOpruimen").onclick=()=>{
+  const weg=projecten.filter(p=>status(p)[0]==="klaar");
+  if(!confirm(`${weg.length} afgeronde project(en) verwijderen?\n\n`+weg.map(p=>"• "+p.klant+" – "+p.project).join("\n"))) return;
+  projecten=projecten.filter(p=>status(p)[0]!=="klaar"); markeer(true); teken();
+};
+function markeer(v){ vuil=v; const s=$("status"); s.textContent=v?"● Niet opgeslagen wijzigingen":"Geen wijzigingen"; s.className=v?"vuil":""; }
+window.addEventListener("beforeunload",e=>{ if(vuil){ e.preventDefault(); e.returnValue=""; } });
+
+/* ───────── opslaan ───────── */
+function bouwJson(){
+  const schoon=projecten
+    .filter(p=>p.klant.trim()||p.project.trim())
+    .map(p=>({klant:p.klant.trim(),project:p.project.trim(),wie:p.wie.split(",").map(s=>s.trim()).filter(Boolean).join(", "),
+              type:p.type,start:p.start||"",eind:p.start?(p.eind||p.start):""}));
+  return {bijgewerkt:new Date().toISOString(),projecten:schoon};
+}
+function controle(){
+  const fout=projecten.filter(p=>status(p)[0]==="fout");
+  if(fout.length){ toast(`${fout.length} project(en) hebben een eindmaand vóór de startmaand. Pas dat eerst aan.`,"fout"); return false; }
+  return true;
+}
+$("btnOpslaan").onclick=async()=>{
+  if(!controle()) return;
+  const c=leesCfg();
+  if(!(c.owner&&c.repo&&c.token)){ $("instel").open=true; toast("Stel eerst de GitHub-koppeling in (of gebruik Download).","fout"); return; }
+  const data=bouwJson(), btn=$("btnOpslaan"); btn.disabled=true; btn.textContent="Opslaan…";
+  try{
+    // altijd de nieuwste sha ophalen zodat opslaan niet faalt na een wijziging elders
+    const g=await fetch(apiUrl(c)+"?ref="+encodeURIComponent(c.branch)+"&t="+Date.now(),{headers:hdrs(c),cache:"no-store"});
+    if(g.ok){ sha=(await g.json()).sha; } else if(g.status!==404){ throw new Error("GitHub gaf "+g.status); }
+    const datum=new Date().toLocaleDateString("nl-NL");
+    const r=await fetch(apiUrl(c),{method:"PUT",headers:Object.assign({"Content-Type":"application/json"},hdrs(c)),
+      body:JSON.stringify({message:"Planning bijgewerkt "+datum,content:tekstNaarB64(JSON.stringify(data,null,1)+"\n"),branch:c.branch,...(sha?{sha}:{})})});
+    if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error((j.message||r.status)+(r.status===403||r.status===404?" — controleer of het token schrijfrechten (Contents) op deze repo heeft":"")); }
+    sha=(await r.json()).content.sha;
+    bijgewerkt=data.bijgewerkt; zetData(data);
+    toast("✓ Opgeslagen. Over ±1 minuut staat het op het bord.","ok");
+  }catch(e){ toast("Opslaan mislukt: "+e.message,"fout"); }
+  finally{ btn.disabled=false; btn.textContent="Opslaan naar GitHub"; }
+};
+$("btnDownload").onclick=()=>{
+  if(!controle()) return;
+  const blob=new Blob([JSON.stringify(bouwJson(),null,1)+"\n"],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="projecten.json"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  toast("projecten.json gedownload — upload dit bestand in de repo (Add file → Upload files).");
+};
+$("btnKoppel").onclick=async()=>{ schrijfCfg(cfgUitForm()); if(vuil&&!confirm("Opnieuw ophalen overschrijft je niet-opgeslagen wijzigingen. Doorgaan?")) return; await laden(); if(!$("koppelStatus").textContent.startsWith("✗")) toast("✓ Koppeling werkt","ok"); };
+$("btnHerlaad").onclick=()=>{ if(vuil&&!confirm("Niet-opgeslagen wijzigingen gaan verloren. Doorgaan?")) return; laden(); };
+
+/* Ctrl/Cmd+S = opslaan */
+document.addEventListener("keydown",e=>{ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="s"){ e.preventDefault(); $("btnOpslaan").click(); } });
+
+let tt; function toast(t,k){ const el=$("toast"); el.textContent=t; el.className="aan "+(k||""); clearTimeout(tt); tt=setTimeout(()=>el.className=k||"",k==="fout"?7000:3500); }
+
+/* ───────── plakken uit Excel / Autotask ───────── */
+const MNAMEN=["jan","feb","maa|mrt|mar","apr","mei|may","jun","jul","aug","sep","okt|oct","nov","dec"];
+function leesMaand(v, naStart){
+  v=String(v||"").trim().toLowerCase(); if(!v) return "";
+  let m=/^(\d{4})-(\d{1,2})$/.exec(v); if(m) return m[1]+"-"+m[2].padStart(2,"0");
+  m=/^(\d{1,2})[-\/](\d{4})$/.exec(v); if(m) return m[2]+"-"+m[1].padStart(2,"0");
+  let nr=0;
+  if(/^\d{1,2}$/.test(v)) nr=+v;
+  else { const i=MNAMEN.findIndex(p=>new RegExp("^("+p+")").test(v)); if(i>=0) nr=i+1; }
+  if(nr<1||nr>12) return null;
+  let jaar=nu.getFullYear();
+  if(naStart){ const [sj,sm]=naStart.split("-").map(Number); jaar=sj; if(nr<sm) jaar++; }
+  else if(nr < nu.getMonth()+1-3) jaar++;               // bijv. in november "2" = februari volgend jaar
+  return jaar+"-"+String(nr).padStart(2,"0");
+}
+function leesPlak(tekst){
+  const uit=[], fout=[];
+  tekst.split(/\r?\n/).forEach((r,n)=>{
+    if(!r.trim()) return;
+    const c=r.split(r.includes("\t")?"\t":/;|\s{2,}/).map(x=>x.trim());
+    if(c.length<2){ fout.push(n+1); return; }
+    if(/^klant$/i.test(c[0])) return;                    // kopregel overslaan
+    const start=leesMaand(c[4]); const eind=start?leesMaand(c[5],start):"";
+    if(start===null||eind===null){ fout.push(n+1); return; }
+    uit.push({klant:c[0],project:c[1]||"",wie:c[2]||"",type:/sales/i.test(c[3]||"")?"sales":"klant",start:start||"",eind:eind||start||""});
+  });
+  return {uit,fout};
+}
+const sleutel=p=>(p.klant+"|"+p.project).toLowerCase().replace(/\b(b\.?v\.?)\b/g,"").replace(/[^a-z0-9|]/g,"");
+function plakVoorbeeld(){
+  const {uit,fout}=leesPlak($("plakTekst").value);
+  const best=new Set(projecten.map(sleutel));
+  const upd=uit.filter(p=>best.has(sleutel(p))).length;
+  $("plakVoorbeeld").innerHTML=uit.length?`<b>${uit.length}</b> regels herkend: ${upd} bijwerken, ${uit.length-upd} nieuw.`+(fout.length?` <span style="color:var(--rood)">Regel ${fout.join(", ")} niet begrepen.</span>`:""):"";
+}
+$("btnPlak").onclick=()=>{ $("plakTekst").value=""; $("plakVoorbeeld").textContent=""; $("plakDlg").showModal(); $("plakTekst").focus(); };
+$("plakTekst").oninput=plakVoorbeeld; $("plakVervang").onchange=plakVoorbeeld;
+$("plakAnnuleer").onclick=()=>$("plakDlg").close();
+$("plakOk").onclick=()=>{
+  const {uit,fout}=leesPlak($("plakTekst").value);
+  if(!uit.length){ toast("Geen regels herkend.","fout"); return; }
+  if($("plakVervang").checked) projecten=projecten.filter(p=>!p.start);
+  let upd=0, nieuw=0;
+  uit.forEach(n=>{
+    const i=projecten.findIndex(p=>sleutel(p)===sleutel(n));
+    if(i>=0){ projecten[i]={...projecten[i],...n}; upd++; } else { projecten.push(n); nieuw++; }
+  });
+  sorteer(); markeer(true); teken(); $("plakDlg").close();
+  toast(`${upd} bijgewerkt, ${nieuw} toegevoegd${fout.length?`, ${fout.length} overgeslagen`:""}. Vergeet niet op te slaan.`,"ok");
+};
+
+vulCfg(); laden();
+</script>
+</body>
+</html>
