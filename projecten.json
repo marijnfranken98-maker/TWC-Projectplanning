@@ -1,54 +1,6 @@
 {
- "bijgewerkt": "2026-10-12T13:41:24.263Z",
+ "bijgewerkt": "2026-10-12T14:06:09.229Z",
  "projecten": [
-  {
-   "klant": "TBRM Group B.V.",
-   "project": "Blueprint startups",
-   "wie": "Jelle B",
-   "type": "sales",
-   "start": "2026-06",
-   "eind": "2026-12"
-  },
-  {
-   "klant": "Boss Machinery",
-   "project": "Nieuwbouw Habraken",
-   "wie": "Dennis, Ron",
-   "type": "sales",
-   "start": "2026-08",
-   "eind": "2026-12"
-  },
-  {
-   "klant": "ASV Automobielbedrijven",
-   "project": "Update Esx + Vcenter naar build 8",
-   "wie": "Mitchell",
-   "type": "sales",
-   "start": "2026-09",
-   "eind": "2026-10"
-  },
-  {
-   "klant": "Bouwbedrijf Th. Van Kasteren",
-   "project": "Naamswijziging naar Builders",
-   "wie": "Bas",
-   "type": "klant",
-   "start": "2026-09",
-   "eind": "2026-10"
-  },
-  {
-   "klant": "Econox B.V.",
-   "project": "Firewall vervanging Maxicool",
-   "wie": "Bas",
-   "type": "klant",
-   "start": "2026-09",
-   "eind": "2026-10"
-  },
-  {
-   "klant": "Econox B.V.",
-   "project": "EHV Vervanging netwerk",
-   "wie": "Bas, Levi, Bart",
-   "type": "klant",
-   "start": "2026-09",
-   "eind": "2026-10"
-  },
   {
    "klant": "ASV Automobielbedrijven B.V.",
    "project": "Infrastructuur Heuvelplein 4",
@@ -138,18 +90,18 @@
    "eind": ""
   },
   {
-   "klant": "013 Poppodium",
-   "project": "RBAC Implementatie",
-   "wie": "Levi",
-   "type": "klant",
+   "klant": "ASV Automobielbedrijven B.V.",
+   "project": "Update Esx + Vcenter naar build 8",
+   "wie": "",
+   "type": "sales",
    "start": "",
    "eind": ""
   },
   {
-   "klant": "ASV Automobielbedrijven",
-   "project": "RBAC Implementatie",
-   "wie": "Mitchell",
-   "type": "klant",
+   "klant": "AVEM Kinderopvang B.V.",
+   "project": "Nieuwe klant",
+   "wie": "",
+   "type": "sales",
    "start": "",
    "eind": ""
   },
@@ -162,34 +114,26 @@
    "eind": ""
   },
   {
-   "klant": "De Beerze",
-   "project": "Infrastructuur",
+   "klant": "Boss Machinery",
+   "project": "Implementatie Jamf",
    "wie": "",
    "type": "sales",
    "start": "",
    "eind": ""
   },
   {
-   "klant": "DPI",
-   "project": "Nieuwe infrastructuur",
+   "klant": "De Beerze B.V.",
+   "project": "Vervanging netwerk",
    "wie": "",
    "type": "sales",
    "start": "",
    "eind": ""
   },
   {
-   "klant": "Econox B.V.",
-   "project": "R&D Azure Files",
+   "klant": "De Beerze B.V.",
+   "project": "Kantoorautomatisering",
    "wie": "",
-   "type": "klant",
-   "start": "",
-   "eind": ""
-  },
-  {
-   "klant": "Leermakers Accountants & belastingadviseurs",
-   "project": "Scannen via Printix",
-   "wie": "",
-   "type": "klant",
+   "type": "sales",
    "start": "",
    "eind": ""
   },
@@ -202,68 +146,36 @@
    "eind": ""
   },
   {
-   "klant": "Th. Van Kasteren",
-   "project": "TWC Workplace + Server",
-   "wie": "Bas",
-   "type": "sales",
-   "start": "",
-   "eind": ""
-  },
-  {
-   "klant": "WTC/e",
-   "project": "TWC Workplace",
+   "klant": "TBRM Group B.V.",
+   "project": "Blueprint startups",
    "wie": "",
    "type": "sales",
    "start": "",
    "eind": ""
   },
   {
-   "klant": "Boss Machinery",
-   "project": "Verbetering Security",
-   "wie": "Ron, Rick",
-   "type": "klant",
-   "start": "2026-06",
-   "eind": "2026-09"
+   "klant": "TBRM-Engineering Solutions B.V.",
+   "project": "Implementatie Copilot",
+   "wie": "",
+   "type": "sales",
+   "start": "",
+   "eind": ""
   },
   {
-   "klant": "Bontrup",
-   "project": "Overname IT Infrastructuur Struktura B.V.",
-   "wie": "Levi",
-   "type": "klant",
-   "start": "2026-07",
-   "eind": "2026-09"
-  },
-  {
-   "klant": "SMART Clinical Products B.V.",
+   "klant": "Tijger Invest B.V.",
    "project": "TWC 365Beheer",
-   "wie": "Bart",
-   "type": "klant",
-   "start": "2026-07",
-   "eind": "2026-09"
+   "wie": "",
+   "type": "sales",
+   "start": "",
+   "eind": ""
   },
   {
-   "klant": "Vivens Management B.V.",
-   "project": "TWC 365Beheer",
-   "wie": "Bart",
-   "type": "klant",
-   "start": "2026-07",
-   "eind": "2026-09"
-  },
-  {
-   "klant": "Kerbos",
-   "project": "Security Policies optimaliseren",
-   "wie": "Ron",
-   "type": "klant",
-   "start": "2026-09",
-   "eind": "2026-09"
-  },
-  {
-   "klant": "MRT Engines",
-   "project": "Tenant migratie naar LKQ",
-   "wie": "Mitchell, Erwin",
-   "type": "klant",
-   "start": "2026-09",
-   "eind": "2026-09"
+   "klant": "Van Gennip Textiles B.V.",
+   "project": "Nieuwe klant",
+   "wie": "",
+   "type": "sales",
+   "start": "",
+   "eind": ""
   }
  ]
 }
