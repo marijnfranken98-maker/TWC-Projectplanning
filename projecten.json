@@ -1,6 +1,38 @@
 {
- "bijgewerkt": "2026-10-12T14:06:45.363Z",
+ "bijgewerkt": "2026-11-02T13:11:16.792Z",
  "projecten": [
+  {
+   "klant": "Econox B.V.",
+   "project": "Code2 naar Exclaimer",
+   "wie": "Ian",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "Arx Pinea Holding",
+   "project": "Uploadportaal",
+   "wie": "Luke",
+   "type": "klant",
+   "start": "2026-10",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "Boss Machinery",
+   "project": "AI Server",
+   "wie": "Bas",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "BLDRS van Kasteren",
+   "project": "TWC Secure Connect",
+   "wie": "Bas",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
+  },
   {
    "klant": "ASV Automobielbedrijven B.V.",
    "project": "Infrastructuur Heuvelplein 4",
@@ -12,31 +44,15 @@
   {
    "klant": "Connection-SGGZ",
    "project": "Nieuw pand Utrecht",
-   "wie": "Mitchell, Dennis",
+   "wie": "Mitchell, Jelle B, Dennis",
    "type": "klant",
    "start": "2026-10",
    "eind": "2026-11"
   },
   {
-   "klant": "Econox B.V.",
-   "project": "Migratie Sonos controller",
-   "wie": "Levi",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-10"
-  },
-  {
-   "klant": "Geeqs",
-   "project": "TWC Workplace",
-   "wie": "Tom, Luke",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-10"
-  },
-  {
    "klant": "Geevers Auto Parts",
    "project": "Netwerk Westfields",
-   "wie": "Mitchell, Bas",
+   "wie": "Mitchell, Bas, Levi",
    "type": "klant",
    "start": "2026-10",
    "eind": "2026-11"
@@ -44,7 +60,7 @@
   {
    "klant": "Geevers Auto Parts",
    "project": "Verhuizing Westfields",
-   "wie": "Bas, Mitchell",
+   "wie": "Bas, Mitchell, Levi",
    "type": "klant",
    "start": "2026-10",
    "eind": "2026-12"
@@ -53,14 +69,6 @@
    "klant": "Synaxion B.V.",
    "project": "Uitfaseren servers",
    "wie": "Bas",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-11"
-  },
-  {
-   "klant": "The Forward Co",
-   "project": "Wijzigen tenantnaam",
-   "wie": "Tom",
    "type": "klant",
    "start": "2026-10",
    "eind": "2026-11"
@@ -78,8 +86,8 @@
    "project": "Migratie UniFi controller",
    "wie": "Joeï",
    "type": "klant",
-   "start": "2026-11",
-   "eind": "2026-12"
+   "start": "",
+   "eind": ""
   },
   {
    "klant": "013 Poppodium",
@@ -156,10 +164,10 @@
   {
    "klant": "TBRM-Engineering Solutions B.V.",
    "project": "Implementatie Copilot",
-   "wie": "",
-   "type": "sales",
-   "start": "",
-   "eind": ""
+   "wie": "Rick",
+   "type": "klant",
+   "start": "2026-10",
+   "eind": "2026-11"
   },
   {
    "klant": "Tijger Invest B.V.",
@@ -176,6 +184,22 @@
    "type": "sales",
    "start": "",
    "eind": ""
+  },
+  {
+   "klant": "Econox B.V.",
+   "project": "Migratie Sonos controller",
+   "wie": "Levi",
+   "type": "klant",
+   "start": "2026-10",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "Geeqs",
+   "project": "TWC Workplace",
+   "wie": "Tom, Luke",
+   "type": "klant",
+   "start": "2026-10",
+   "eind": "2026-10"
   }
  ]
 }
