@@ -1,36 +1,12 @@
 {
- "bijgewerkt": "2026-11-02T13:11:16.792Z",
+ "bijgewerkt": "2026-11-02T13:15:10.466Z",
  "projecten": [
-  {
-   "klant": "Econox B.V.",
-   "project": "Code2 naar Exclaimer",
-   "wie": "Ian",
-   "type": "klant",
-   "start": "2026-11",
-   "eind": "2026-11"
-  },
   {
    "klant": "Arx Pinea Holding",
    "project": "Uploadportaal",
    "wie": "Luke",
    "type": "klant",
    "start": "2026-10",
-   "eind": "2026-11"
-  },
-  {
-   "klant": "Boss Machinery",
-   "project": "AI Server",
-   "wie": "Bas",
-   "type": "klant",
-   "start": "2026-11",
-   "eind": "2026-11"
-  },
-  {
-   "klant": "BLDRS van Kasteren",
-   "project": "TWC Secure Connect",
-   "wie": "Bas",
-   "type": "klant",
-   "start": "2026-11",
    "eind": "2026-11"
   },
   {
@@ -45,6 +21,14 @@
    "klant": "Connection-SGGZ",
    "project": "Nieuw pand Utrecht",
    "wie": "Mitchell, Jelle B, Dennis",
+   "type": "klant",
+   "start": "2026-10",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "Econox B.V.",
+   "project": "Migratie Sonos controller",
+   "wie": "Levi",
    "type": "klant",
    "start": "2026-10",
    "eind": "2026-11"
@@ -74,6 +58,30 @@
    "eind": "2026-11"
   },
   {
+   "klant": "TBRM-Engineering Solutions B.V.",
+   "project": "Implementatie Copilot",
+   "wie": "Rick",
+   "type": "klant",
+   "start": "2026-10",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "BLDRS van Kasteren",
+   "project": "TWC Secure Connect",
+   "wie": "Bas",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "Boss Machinery",
+   "project": "AI Server",
+   "wie": "Bas",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
+  },
+  {
    "klant": "Connection-SGGZ",
    "project": "Vervanging netwerk locatie Kortenbos",
    "wie": "Mitchell, Dennis",
@@ -83,11 +91,11 @@
   },
   {
    "klant": "Econox B.V.",
-   "project": "Migratie UniFi controller",
-   "wie": "Joeï",
+   "project": "Code2 naar Exclaimer",
+   "wie": "Ian",
    "type": "klant",
-   "start": "",
-   "eind": ""
+   "start": "2026-11",
+   "eind": "2026-11"
   },
   {
    "klant": "013 Poppodium",
@@ -146,6 +154,14 @@
    "eind": ""
   },
   {
+   "klant": "Econox B.V.",
+   "project": "Migratie UniFi controller",
+   "wie": "Joeï",
+   "type": "klant",
+   "start": "",
+   "eind": ""
+  },
+  {
    "klant": "Metabletica",
    "project": "TWC Workplace",
    "wie": "",
@@ -162,20 +178,12 @@
    "eind": ""
   },
   {
-   "klant": "TBRM-Engineering Solutions B.V.",
-   "project": "Implementatie Copilot",
-   "wie": "Rick",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-11"
-  },
-  {
    "klant": "Tijger Invest B.V.",
    "project": "TWC 365Beheer",
-   "wie": "",
-   "type": "sales",
-   "start": "",
-   "eind": ""
+   "wie": "Bart",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
   },
   {
    "klant": "Van Gennip Textiles B.V.",
@@ -184,14 +192,6 @@
    "type": "sales",
    "start": "",
    "eind": ""
-  },
-  {
-   "klant": "Econox B.V.",
-   "project": "Migratie Sonos controller",
-   "wie": "Levi",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-11"
   },
   {
    "klant": "Geeqs",
