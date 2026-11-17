@@ -1,6 +1,22 @@
 {
- "bijgewerkt": "2026-11-02T13:15:10.466Z",
+ "bijgewerkt": "2026-11-17T09:55:35.947Z",
  "projecten": [
+  {
+   "klant": "Geevers Auto Parts",
+   "project": "Printix Implementatie",
+   "wie": "Bas",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-12"
+  },
+  {
+   "klant": "TBRM-Engineering Solutions B.V.",
+   "project": "Verhuizing Achterdijk 33 Helmond",
+   "wie": "Dennis, Jelle B",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-12"
+  },
   {
    "klant": "Arx Pinea Holding",
    "project": "Uploadportaal",
@@ -16,30 +32,6 @@
    "type": "klant",
    "start": "2026-10",
    "eind": "2026-12"
-  },
-  {
-   "klant": "Connection-SGGZ",
-   "project": "Nieuw pand Utrecht",
-   "wie": "Mitchell, Jelle B, Dennis",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-11"
-  },
-  {
-   "klant": "Econox B.V.",
-   "project": "Migratie Sonos controller",
-   "wie": "Levi",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-11"
-  },
-  {
-   "klant": "Geevers Auto Parts",
-   "project": "Netwerk Westfields",
-   "wie": "Mitchell, Bas, Levi",
-   "type": "klant",
-   "start": "2026-10",
-   "eind": "2026-11"
   },
   {
    "klant": "Geevers Auto Parts",
@@ -74,14 +66,6 @@
    "eind": "2026-11"
   },
   {
-   "klant": "Boss Machinery",
-   "project": "AI Server",
-   "wie": "Bas",
-   "type": "klant",
-   "start": "2026-11",
-   "eind": "2026-11"
-  },
-  {
    "klant": "Connection-SGGZ",
    "project": "Vervanging netwerk locatie Kortenbos",
    "wie": "Mitchell, Dennis",
@@ -93,6 +77,14 @@
    "klant": "Econox B.V.",
    "project": "Code2 naar Exclaimer",
    "wie": "Ian",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
+  },
+  {
+   "klant": "Tijger Invest B.V.",
+   "project": "TWC 365Beheer",
+   "wie": "Bart",
    "type": "klant",
    "start": "2026-11",
    "eind": "2026-11"
@@ -147,11 +139,11 @@
   },
   {
    "klant": "De Beerze B.V.",
-   "project": "Kantoorautomatisering",
-   "wie": "",
-   "type": "sales",
-   "start": "",
-   "eind": ""
+   "project": "TWC 365Beheer",
+   "wie": "Luke",
+   "type": "klant",
+   "start": "2026-11",
+   "eind": "2026-11"
   },
   {
    "klant": "Econox B.V.",
@@ -176,14 +168,6 @@
    "type": "sales",
    "start": "",
    "eind": ""
-  },
-  {
-   "klant": "Tijger Invest B.V.",
-   "project": "TWC 365Beheer",
-   "wie": "Bart",
-   "type": "klant",
-   "start": "2026-11",
-   "eind": "2026-11"
   },
   {
    "klant": "Van Gennip Textiles B.V.",
